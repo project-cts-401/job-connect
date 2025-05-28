@@ -4,68 +4,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- --------- UNICONS ---------- -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="/css/Home.css">
-    <!-- <link rel="stylesheet" href="/projects.css"> -->
+    <link rel="stylesheet" href="/home/assets/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" xintegrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-    <!-- --------- FONT AWESOME ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" 
-    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <title>job-connect | My Posted Jobs</title>
 
-    <title>job-connect | posted jobs.</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1>My Posted Jobs</h1>
-    <p><a href="/admin/jobs/new">Post a New Job</a></p>
 
-    <% if (jobs && jobs.length > 0) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Type</th>
-                    <th>Department</th>
-                    <th>Status</th>
-                    <th>Date Posted</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% jobs.forEach(job => { %>
-                    <tr>
-                        <td><%= job.title %></td>
-                        <td><%= job.job_type %></td>
-                        <td><%= job.department || 'N/A' %></td>
-                        <td><%= job.status %></td>
-                        <td><%= new Date(job.created_at).toLocaleDateString() %></td>
-                        <td>
-                            <a href="/admin/jobs/<%= job.id %>/applications">View Applications</a>
-                            </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p class="no-jobs">You have not posted any jobs yet.</p>
-    <% } %>
+<body id="top">
+
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <ion-icon name="business-outline"></ion-icon> job-connect
+            </a>
+            <nav class="navbar container" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+                    <li><a href="/AboutUs" class="navbar-link" data-nav-link>About Us</a></li>
+                    <li><a href="/contactUs" class="navbar-link" data-nav-link>Contact Us</a></li>
+                    <li><a href="/jobs" class="navbar-link" data-nav-link>Jobs</a></li>
+                    <% if (locals.session && locals.session.role === 'admin') { %>
+                        <li><a href="/admin/jobs" class="navbar-link" data-nav-link style="color: hsl(194, 100%, 28%);">My Postings</a></li>
+                        <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link>Post New Job</a></li>
+                    <% } %>
+                </ul>
+            </nav>
+            <% if (locals.session && locals.session.userId) { %>
+                <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+            <% } else { %>
+                <a class="btn btn-secondary" href="/auth/login">Login</a>
+            <% } %>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <article class="section admin-dashboard" aria-label="Admin Dashboard">
+            <div class="container">
+
+                <div class="admin-page-header">
+                    <h1 class="h1 page-title">My Job Postings</h1>
+                    <a href="/admin/jobs/new" class="btn btn-primary">Post a New Job <i class="ri-add-line"></i></a>
+                </div>
+
+                <% if (jobs && jobs.length > 0) { %>
+                    <div class="table-container">
+                        <table class="job-table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Type</th>
+                                    <th>Department</th>
+                                    <th>Status</th>
+                                    <th>Date Posted</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% jobs.forEach(job => { %>
+                                    <tr>
+                                        <td data-label="Title"><%= job.title %></td>
+                                        <td data-label="Type"><%= job.job_type %></td>
+                                        <td data-label="Department"><%= job.department || 'N/A' %></td>
+                                        <td data-label="Status">
+                                            <span class="status-badge status-<%= job.status.toLowerCase() %>">
+                                                <%= job.status %>
+                                            </span>
+                                        </td>
+                                        <td data-label="Date Posted"><%= new Date(job.created_at).toLocaleDateString() %></td>
+                                        <td data-label="Actions">
+                                            <a href="/admin/jobs/<%= job.id %>/applications" class="btn btn-sm btn-view-apps">View Applications</a>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="no-jobs-message">
+                        <div class="card-icon">
+                            <ion-icon name="file-tray-outline"></ion-icon>
+                        </div>
+                        <h2 class="h2">No Jobs Posted Yet</h2>
+                        <p>You have not posted any jobs. Click the button below to create your first job listing.</p>
+                        <a href="/admin/jobs/new" class="btn btn-primary">Post a New Job</a>
+                    </div>
+                <% } %>
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    © <%= new Date().getFullYear() %> job-connect. All Rights Reserved by UMP ICT Services.
+                </p>
+                </div>
+        </div>
+    </footer>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="/js/script.js" defer></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

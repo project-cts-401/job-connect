@@ -4,95 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- --------- UNICONS ---------- -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="/css/Home.css">
-    <!-- <link rel="stylesheet" href="/projects.css"> -->
+    <link rel="stylesheet" href="/home/assets/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" xintegrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-    <!-- --------- FONT AWESOME ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" 
-    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <title>job-connect | View Applications - <%= job.title %></title>
 
-    <title>job-connect | home.</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1>Applications for: <%= job.title %></h1>
 
-    <div class="job-details">
-        <h2>Job Details</h2>
-        <p><strong>Type:</strong> <%= job.job_type %></p>
-        <p><strong>Department:</strong> <%= job.department || 'N/A' %></p>
-        <p><strong>Description:</strong><br><%= job.description.replace(/\n/g, '<br>') %></p>
-        <% if(job.requirements) { %>
-            <p><strong>Requirements:</strong><br><%= job.requirements.replace(/\n/g, '<br>') %></p>
-        <% } %>
-        <% if(job.deadline) { %>
-             <p><strong>Deadline:</strong> <%= new Date(job.deadline).toLocaleDateString() %></p>
-        <% } %>
-    </div>
+<body id="top">
 
-     <% if (typeof error !== 'undefined' && error) { %>
-        <div class="error"><%= error %></div>
-    <% } %>
+    <!--
+      - #HEADER
+    -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <ion-icon name="business-outline"></ion-icon> job-connect
+            </a>
+            <nav class="navbar container" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+                    <li><a href="/AboutUs" class="navbar-link" data-nav-link>About Us</a></li>
+                    <li><a href="/contactUs" class="navbar-link" data-nav-link>Contact Us</a></li>
+                    <li><a href="/jobs" class="navbar-link" data-nav-link>Jobs</a></li>
+                    <% if (locals.session && locals.session.role === 'admin') { %>
+                        <li><a href="/admin/jobs" class="navbar-link" data-nav-link style="color: hsl(194, 100%, 28%);">My Postings</a></li>
+                        <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link>Post New Job</a></li>
+                    <% } %>
+                </ul>
+            </nav>
+            <% if (locals.session && locals.session.userId) { %>
+                <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+            <% } else { %>
+                <a class="btn btn-secondary" href="/auth/login">Login</a>
+            <% } %>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+            </button>
+        </div>
+    </header>
 
-    <h2>Received Applications</h2>
+    <main>
+        <article class="section admin-dashboard" aria-label="Admin View Applications">
+            <div class="container">
 
-    <% if (applications && applications.length > 0) { %>
-        <table>
-            <thead>
-                <tr>
-                    <th>Applicant Name</th>
-                    <th>Applicant Email</th>
-                    <th>Date Applied</th>
-                    <th>Current Status</th>
-                    <th>Update Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% applications.forEach(app => { %>
-                    <tr>
-                        <td><%= app.student_name %></td>
-                        <td><a href="mailto:<%= app.student_email %>"><%= app.student_email %></a></td>
-                        <td><%= new Date(app.application_date).toLocaleString() %></td>
-                        <td><strong><%= app.status %></strong></td>
-                        <td>
-                            <form action="/admin/applications/<%= app.id %>/status" method="POST" style="display: flex; align-items: center;">
-                                <select name="status" required>
-                                     <% const statuses = ['Submitted', 'Under Review', 'Interviewing', 'Offered', 'Rejected', 'Accepted']; %>
-                                     <% statuses.forEach(s => { %>
-                                        <option value="<%= s %>" <%= app.status === s ? 'selected' : '' %>><%= s %></option>
-                                     <% }) %>
-                                </select>
-                                <button type="submit">Update</button>
-                            </form>
-                        </td>
-                    </tr>
-                <% }) %>
-            </tbody>
-        </table>
-    <% } else { %>
-        <p class="no-apps">No applications received for this job yet.</p>
-    <% } %>
+                <div class="admin-page-header">
+                    <h1 class="h1 page-title">Applications for: <%= job.title %></h1>
+                    <a href="/admin/jobs" class="btn btn-secondary"><i class="ri-arrow-left-line"></i> Back to My Job Postings</a>
+                </div>
 
-    <p style="margin-top: 20px;"><a href="/admin/jobs">Back to My Job Postings</a></p>
+                <div class="card job-details-card">
+                    <h2 class="h2 card-title">Job Details</h2>
+                    <div class="card-content">
+                        <p><strong>Job Title:</strong> <%= job.title %></p>
+                        <p><strong>Type:</strong> <%= job.job_type %></p>
+                        <p><strong>Department:</strong> <%= job.department || 'N/A' %></p>
+                        <p><strong>Status:</strong> <span class="status-badge status-<%= job.status.toLowerCase().replace(' ', '-') %>"><%= job.status %></span></p>
+                        <div class="job-description-block">
+                            <strong>Description:</strong>
+                            <p><%- job.description.replace(/\n/g, '<br>') %></p>
+                        </div>
+                        <% if(job.requirements) { %>
+                            <div class="job-description-block">
+                                <strong>Requirements:</strong>
+                                <p><%- job.requirements.replace(/\n/g, '<br>') %></p>
+                            </div>
+                        <% } %>
+                        <% if(job.deadline) { %>
+                             <p><strong>Application Deadline:</strong> <%= new Date(job.deadline).toLocaleDateString() %></p>
+                        <% } %>
+                         <p><strong>Date Posted:</strong> <%= new Date(job.created_at).toLocaleDateString() %></p>
+                    </div>
+                </div>
 
+
+                <% if (typeof error !== 'undefined' && error) { %>
+                    <div class="alert alert-danger" role="alert">
+                        <%= error %>
+                    </div>
+                <% } %>
+
+                <h2 class="h2 section-title-sub" style="margin-top: 40px; margin-bottom: 20px;">Received Applications (<%= applications ? applications.length : 0 %>)</h2>
+
+                <% if (applications && applications.length > 0) { %>
+                    <div class="table-container">
+                        <table class="job-table applications-table">
+                            <thead>
+                                <tr>
+                                    <th>Applicant Name</th>
+                                    <th>Email</th>
+                                    <th>Date Applied</th>
+                                    <th>Current Status</th>
+                                    <th>Update Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% applications.forEach(app => { %>
+                                    <tr>
+                                        <td data-label="Applicant Name"><%= app.student_name %></td>
+                                        <td data-label="Email"><a href="mailto:<%= app.student_email %>" class="inline-link"><%= app.student_email %></a></td>
+                                        <td data-label="Date Applied"><%= new Date(app.application_date).toLocaleString() %></td>
+                                        <td data-label="Current Status">
+                                            <span class="status-badge status-<%= app.status.toLowerCase().replace(' ', '-') %>">
+                                                <%= app.status %>
+                                            </span>
+                                        </td>
+                                        <td data-label="Update Status">
+                                            <form action="/admin/applications/<%= app.id %>/status" method="POST" class="status-update-form">
+                                                <select name="status" required class="status-select">
+                                                    <% const statuses = ['Submitted', 'Under Review', 'Interviewing', 'Offered', 'Rejected', 'Accepted']; %>
+                                                    <% statuses.forEach(s => { %>
+                                                        <option value="<%= s %>" <%= app.status === s ? 'selected' : '' %>><%= s %></option>
+                                                    <% }) %>
+                                                </select>
+                                                <button type="submit" class="btn btn-sm btn-update-status">Update</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                <% } else { %>
+                    <div class="no-jobs-message no-applications-message"> <div class="card-icon">
+                            <ion-icon name="document-text-outline"></ion-icon>
+                        </div>
+                        <h2 class="h2">No Applications Yet</h2>
+                        <p>No applications have been received for this job posting yet. Check back later or promote your job posting to attract candidates.</p>
+                    </div>
+                <% } %>
+
+            </div>
+        </article>
+    </main>
+
+    <!--
+      - #FOOTER
+    -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    © <%= new Date().getFullYear() %> job-connect. All Rights Reserved by UMP ICT Services.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!--
+      - #BACK TO TOP
+    -->
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <!--
+      - custom js link
+    -->
+    <script src="/js/script.js" defer></script>
+
+    <!--
+      - ionicon link
+    -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -1,255 +1,331 @@
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- --------- UNICONS ---------- -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="/css/Home.css">
+    <!-- <link rel="stylesheet" href="/about/style.css"> -->
     <link rel="stylesheet" href="/home/assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-
-    <!-- --------- FONT AWESOME ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <title>job-connect | About Us</title>
 
-    <title>job-connect | about us.</title>
-
-    <!-- --------- GOOGLE API --------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-        
+        /* Minimal inline styles, prefer about.css for extensive styling */
         body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            font-family: 'Poppins', sans-serif; /* Consistent font from home */
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
+        .how-to-use-student ol {
+            list-style-type: decimal;
+            margin-left: 20px;
         }
-        
-        .about-section {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .about-section h2 {
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .about-section p {
-            font-size: 1.5rem;
-            line-height: 1.8;
-        }
-        
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        
-        .feature {
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin: 10px;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-        }
-        
-        .feature h3 {
-            font-size: 2.5rem;
+        .how-to-use-student ol li {
             margin-bottom: 10px;
-        }
-        
-        .feature p {
-            font-size: 1.4rem;
-            line-height: 1.4;
-        }
-        
-        .team-section {
-            width: 100%;
-            text-align: center;
-            background-color: #f9f9f9;
-            /* Light background for the section */
-        }
-        
-        .team-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #333;
-            /* Darker heading color */
-        }
-        
-        .team-section p {
-            font-size: 1.5rem;
-            color: #555;
-            /* Slightly darker text */
-            margin-bottom: 30px;
-        }
-        
-        .team-section .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            /* Space between team members */
-        }
-        
-        .team-member {
-            background-color: #fff;
-            /* White background for team member cards */
-            width: fit-content;
-            border-radius: 10px;
-            /* Rounded corners for the cards */
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow for depth */
-            transition: transform 0.3s ease;
-            /* Smooth transition for hover effect */
-        }
-        
-        .team-member:hover {
-            transform: translateY(-10px);
-            /* Move card up slightly on hover */
-        }
-        
-        .team-member img {
-            width: 150px;
-            /* Fixed size for team member images */
-            height: 150px;
-            border-radius: 50%;
-            /* Make images circular */
-            object-fit: cover;
-            /* Ensure images cover the circular area */
-            margin-bottom: 15px;
-        }
-        
-        .team-member h3 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            color: #222;
-            /* Very dark heading */
-        }
-        
-        .team-member p {
-            font-size: 1.1rem;
-            color: #666;
-            /* Medium gray text */
-        }
-        
-        .info-section {
-            padding: 2.5em 0;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 40px;
-        }
-        
-        .info-section .left-container {
-            width: 100%;
-            /* Full width for the left container */
-        }
-        
-        .info-section .left-container img {
-            width: 100%;
-            border-radius: 10px;
-            /* Full width for the left container */
+            line-height: 1.7;
         }
     </style>
 </head>
-<chat-bot platform_id="b4f95226-505a-4958-af71-e06ab928b25e" user_id="4bb7148c-5509-46c4-8af0-2ee2674908d3" chatbot_id="574cefc0-9d08-47b1-a13e-d1ed3053dd36"><a href="https://www.chatsimple.ai/?utm_source=widget&utm_medium=referral">chatsimple</a></chat-bot>
-<script src="https://cdn.chatsimple.ai/chat-bot-loader.js" defer></script>
 
-<body>
+<body id="top">
 
-    <%-include('./partials/Header.ejs')-%>
+    <header class="header" data-header>
         <div class="container">
-            <section class="about-section">
-                <h2>About Us</h2>
-                <p>
-                    Empowering students and enriching the University of Mpumalanga’s campus experience is the driving force behind our new On-Campus Employment platform. This website has been purposefully developed to provide students with easy access to a wide range of
-                    on-campus job opportunities, including tutoring, student assistance, mentorship roles, research assistance, student housing positions, and more. By centralizing these opportunities in one user-friendly platform, we aim to create a
-                    fair, transparent, and efficient system that supports student growth both academically and professionally. Whether you're looking to gain valuable work experience, contribute meaningfully to campus life, or support your studies financially,
-                    this platform is designed to connect you with roles that match your skills, interests, and availability. At the University of Mpumalanga, we believe that student employment is more than just a job — it’s an opportunity to learn, lead,
-                    and make a lasting impact within our vibrant campus community.
-                </p>
-            </section>
-            <section class="features">
-                <div class="feature">
-                    <h3>Vision</h3>
-                    <p> Leading UMP on-campus employment for student success.</p>
-                </div>
-                <div class="feature">
-                    <h3>Mission</h3>
-                    <p>Empowering UMP students through on-campus work.</p>
-                </div>
-                <div class="feature">
-                    <h3>Goal</h3>
-                    <p>Our platform integrates with various university systems to provide a unified experience.</p>
-                </div>
-            </section>
-            <section class="info-section">
-                <div class="left-container"><img src="https://www.ump.ac.za/UMPSite/media/UMPMedia/System/Main%20Banner/_MG_2001.JPG" alt=""></div>
-                <div class="right-container"></div>
-            </section>
-            <!-- <section class="team-section">
-                <div class="container" style="flex-direction: column;">
-                    <h2>Our Team</h2>
-                    <p>Meet the dedicated individuals behind our platform.</p>
-                </div>
-                <div class="container">
-                    <div class="team-member">
-                        <img src="https://placehold.co/200x200/EEE/31343C" alt="Team Member 1">
-                        <h3>John Doe</h3>
-                        <p>Project Manager</p>
-                    </div>
-                    <div class="team-member">
-                        <img src="https://placehold.co/200x200/EEE/31343C" alt="Team Member 2">
-                        <h3>Jane Smith</h3>
-                        <p>Lead Developer</p>
-                    </div>
-                    <div class="team-member">
-                        <img src="https://placehold.co/200x200/EEE/31343C" alt="Team Member 3">
-                        <h3>Emily Johnson</h3>
-                        <p>UI/UX Designer</p>
-                    </div>
-                    <div class="team-member">
-                        <img src="https://placehold.co/200x200/EEE/31343C" alt="Team Member 4">
-                        <h3>Michael Brown</h3>
-                        <p>Marketing Specialist</p>
-                    </div>
-                </div>
-            </section> -->
+            <a href="/" class="logo">
+                <ion-icon name="business-outline"></ion-icon> job-connect
+            </a>
+            <nav class="navbar container" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+                    <li><a href="/AboutUs" class="navbar-link" data-nav-link style="color: hsl(194, 100%, 28%);">About Us</a></li>
+                    <li><a href="/contactUs" class="navbar-link" data-nav-link>Contact Us</a></li>
+                    <li><a href="/jobs" class="navbar-link" data-nav-link>Jobs</a></li>
+                    <% if (locals.session && locals.session.role) { %>
+                        <% if (locals.session.role === 'student') { %>
+                            <li><a href="/applications/my" class="navbar-link" data-nav-link>My Applications</a></li>
+                        <% } else if (locals.session.role === 'admin') { %>
+                            <li><a href="/admin/jobs" class="navbar-link" data-nav-link>My Postings</a></li>
+                            <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link>Post New Job</a></li>
+                        <% } %>
+                    <% } %>
+                </ul>
+            </nav>
+            <% if (locals.session && locals.session.userId) { %>
+                <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+            <% } else { %>
+                <a class="btn btn-secondary" href="/auth/login">Login</a>
+            <% } %>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+            </button>
         </div>
-        <%-include('./partials/footer.ejs')-%>
-</body>
+    </header>
 
+    <main>
+        <article class="article">
+
+            <section class="section about-hero" aria-label="About Us Hero">
+                <div class="container">
+                    <div class="about-hero-content" style="color: transparent;">
+                        <h1 class="h1 hero-title" style="color: transparent;">About <span class="span" style="color: transparent;">Job-Connect</span></h1>
+                        <p class="hero-text" style="color: transparent;">
+                            Your comprehensive guide to on-campus employment at the University of Mpumalanga. We connect students with valuable opportunities and assist departments in finding dedicated talent.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section about-mission" aria-label="Our Mission">
+                <div class="container">
+                    <div class="about-mission-content">
+                        <div class="about-mission-text">
+                            <h2 class="h2 section-title">Our Mission & Vision</h2>
+                            <p class="section-text">
+                                At Job-Connect, our mission is to seamlessly bridge the gap between University of Mpumalanga students seeking meaningful work experience and university departments in need of skilled, enthusiastic individuals. We strive to foster a vibrant and dynamic campus community where students can cultivate professional skills, contribute significantly to the university's operations, and prepare for their future careers.
+                            </p>
+                            <p class="section-text">
+                                Our vision is to be the central, indispensable platform for on-campus employment, recognized for its efficiency, accessibility, and positive impact on student development and departmental success. We believe that on-campus jobs are more than just a means of financial support; they are crucial stepping stones for personal growth, offering invaluable opportunities for skill development, practical learning, networking with faculty and staff, and fostering a deeper, more engaged connection to the university environment.
+                            </p>
+                        </div>
+                        <div class="about-mission-image img-holder" style="--width: 500; --height: 350;">
+                            <img src="https://th.bing.com/th/id/OIP.1faD33gXYzTOIAMaMPgFNAHaE8?rs=1&pid=ImgDetMain" loading="lazy" alt="Students collaborating on a project at UMP" class="img-cover">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section about-what-we-do service" style="background: rgba(0, 0, 0, 0.056);" aria-label="What We Do">
+                <div class="container">
+                    <h2 class="h2 section-title">What We Offer</h2>
+                    <p class="section-text">
+                        Job-Connect is a dedicated, user-friendly platform meticulously designed to simplify and enhance the on-campus job search and hiring process for the entire UMP community.
+                    </p>
+                    <ul class="service-list">
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon">
+                                    <ion-icon name="school-outline"></ion-icon> </div>
+                                <h3 class="h3 card-title">For UMP Students</h3>
+                                <p class="card-text">
+                                    Unlock a diverse range of on-campus job listings tailored to your skills and academic schedule. Our platform allows you to effortlessly <a href="/jobs" class="inline-link">search for jobs</a>, use filters to narrow down options by job type or department, and <a href="/jobs" class="inline-link">apply for positions</a> that align with your interests and career aspirations.
+                                    <% if (locals.session && locals.session.role === 'student') { %>
+                                        Once you've applied, you can easily <a href="/applications/my" class="inline-link">track the status of your applications</a> through your personal dashboard.
+                                    <% } else if (!locals.session || !locals.session.userId) { %>
+                                        <a href="/auth/login?redirect=/applications/my" class="inline-link">Track your applications</a> by logging into your account. If you don't have one, <a href="/auth/register/student" class="inline-link">register as a student</a> to get started.
+                                    <% } else { %>
+                                        (Log in as a student to track your applications).
+                                    <% } %>
+                                    Gain practical experience, develop new skills, and build your professional network right here at UMP.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon">
+                                    <ion-icon name="business-outline"></ion-icon> </div>
+                                <h3 class="h3 card-title">For UMP Departments</h3>
+                                <p class="card-text">
+                                    Access a dedicated and motivated pool of talented UMP students eager to contribute. Departments can efficiently
+                                    <% if (locals.session && locals.session.role === 'admin') { %>
+                                        <a href="/admin/jobs/new" class="inline-link">post new job openings</a>, describe requirements, and <a href="/admin/jobs" class="inline-link">manage incoming applications</a> through a streamlined admin interface.
+                                    <% } else { %>
+                                        <a href="/auth/login?redirect=/admin/jobs/new" class="inline-link">post new job openings</a> (admin login required) and manage applications.
+                                    <% } %>
+                                    Find the perfect student candidates to support your departmental projects, research, administrative tasks, and other operational needs.
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="service-card">
+                                <div class="card-icon">
+                                    <ion-icon name="git-network-outline"></ion-icon>
+                                </div>
+                                <h3 class="h3 card-title">A Centralized & Efficient Hub</h3>
+                                <p class="card-text">
+                                    Job-Connect serves as the primary, go-to resource for on-campus employment. We provide a seamless, intuitive, and user-friendly interface for both student job seekers and departmental employers. Our goal is to make the entire on-campus employment lifecycle—from posting a job to hiring a candidate—transparent, efficient, and accessible for every member of the UMP community.
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section how-to-use-student" aria-label="How to Use Job-Connect for Students">
+                <div class="container">
+                    <h2 class="h2 section-title">Student Guide: Navigating Job-Connect</h2>
+                    <p class="section-text">
+                        Finding and applying for on-campus jobs at UMP is straightforward with Job-Connect. Here’s how to get started and make the most of the platform:
+                    </p>
+                    <div class="guide-steps">
+                        <ol>
+                            <li>
+                                <strong>Create Your Account:</strong>
+                                New to Job-Connect? The first step is to <a href="/auth/register/student" class="inline-link">register as a student</a>. You'll need to provide your name, email, student number, and create a secure password. This account will be your gateway to all on-campus job opportunities.
+                            </li>
+                            <li>
+                                <strong>Log In:</strong>
+                                If you already have an account, simply <a href="/auth/login" class="inline-link">log in</a> using your student number (or email) and password to access your dashboard and job listings.
+                            </li>
+                            <li>
+                                <strong>Explore Job Listings:</strong>
+                                Head over to the <a href="/jobs" class="inline-link">Jobs page</a> to see all available on-campus positions. You can browse through all listings or use the search and filter options:
+                                <ul>
+                                    <li><strong>Search by Title:</strong> If you know the type of job you're looking for (e.g., "Tutor", "Assistant").</li>
+                                    <li><strong>Filter by Job Type:</strong> Select categories like "Tutor", "Mentor", "Technician", etc.</li>
+                                    <li><strong>Filter by Department/Faculty:</strong> Find jobs within specific university departments.</li>
+                                </ul>
+                            </li>
+                            <li>
+                                <strong>View Job Details:</strong>
+                                Click on any job title that interests you to see the full details. This page will provide comprehensive information about the role, including responsibilities, required qualifications or skills, working hours (if specified), application deadline, and the department posting the job. Read these details carefully to ensure the job is a good fit for you.
+                            </li>
+                            <li>
+                                <strong>Apply for a Job:</strong>
+                                If you meet the requirements and are interested in a position, click the "Apply" button on the job details page. (You must be logged in as a student to apply). Your application will then be submitted to the respective department for consideration.
+                            </li>
+                            <li>
+                                <strong>Track Your Applications:</strong>
+                                After applying, you can keep track of all your submissions. Navigate to the <a href="/applications/my" class="inline-link">My Applications</a> page (accessible from the navigation bar when logged in) to see a list of jobs you've applied for and their current status (e.g., "Submitted", "Under Review", "Interviewing").
+                            </li>
+                            <li>
+                                <strong>Stay Updated:</strong>
+                                Check the Job-Connect platform regularly for new postings and updates on your application statuses. Some departments may also contact you directly via email if you are shortlisted.
+                            </li>
+                        </ol>
+                        <p class="section-text" style="margin-top: 20px;">
+                            <strong>Tips for Success:</strong>
+                            Ensure your student profile information is accurate. Tailor your approach for each application if cover letters or additional information are requested by departments (though our platform standardizes the initial application). Be mindful of application deadlines.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="section about-values" aria-label="Our Values">
+                <div class="container">
+                    <h2 class="h2 section-title">Our Core Values</h2>
+                    <div class="values-grid">
+                        <div class="value-item">
+                            <div class="value-icon"><i class="ri-lightbulb-flash-line"></i></div>
+                            <h3 class="h3 value-title">Opportunity</h3>
+                            <p class="value-text">Providing accessible and diverse pathways for UMP students to gain valuable work experience, develop professional skills, and earn an income while studying.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon"><i class="ri-community-line"></i></div>
+                            <h3 class="h3 value-title">Community</h3>
+                            <p class="value-text">Fostering a stronger, more interconnected UMP campus environment by facilitating meaningful employment connections between students and university departments.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon"><i class="ri-line-chart-line"></i></div>
+                            <h3 class="h3 value-title">Growth</h3>
+                            <p class="value-text">Empowering students through practical experience and skill enhancement, and supporting departments in achieving their operational and academic goals with capable student talent.</p>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon"><i class="ri-settings-3-line"></i></div>
+                            <h3 class="h3 value-title">Efficiency</h3>
+                            <p class="value-text">Streamlining the on-campus job search, application, and hiring process with intuitive, reliable technology and clear, accessible communication channels for all users.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section contact" aria-label="Join Us">
+                <div class="container">
+                    <h2 class="h2 section-title">Ready to Get Started?</h2>
+                    <p class="section-text">
+                        Whether you're a UMP student eager to find your next on-campus opportunity or a university department looking to recruit motivated student talent, Job-Connect is your dedicated platform.
+                    </p>
+                    <div class="cta-buttons">
+                        <a href="/jobs" class="btn btn-primary">Find a Job</a>
+                        <% if (locals.session && locals.session.role === 'admin') { %>
+                            <a href="/admin/jobs/new" class="btn btn-secondary">Post a Job</a>
+                        <% } else if (!locals.session || !locals.session.userId) { %>
+                             <a href="/auth/login?redirect=/admin/jobs/new" class="btn btn-secondary">Post a Job (Admin Login)</a>
+                        <% } %>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-brand">
+                    <a href="/" class="logo"> <ion-icon name="business-outline"></ion-icon> job-connect
+                    </a>
+                    <p class="footer-text">
+                        Your central hub for on-campus employment at the University of Mpumalanga.
+                    </p>
+                </div>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Company</p></li>
+                    <li><a href="/AboutUs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">About us</span></a></li>
+                    <li><a href="/jobs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Job Listings</span></a></li>
+                    <li><a href="/contactUs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Contact</span></a></li>
+                </ul>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Useful Links</p></li>
+                    <li><a href="#" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Terms of Services</span></a></li>
+                    <li><a href="#" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Privacy Policy</span></a></li>
+                     <% if (locals.session && locals.session.userId) { %>
+                        <li><a href="/auth/logout" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Logout</span></a></li>
+                    <% } else { %>
+                        <li><a href="/auth/login" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Login</span></a></li>
+                    <% } %>
+                </ul>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Contact Details</p></li>
+                    <li class="footer-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <address class="address">
+                            University of Mpumalanga,<br>
+                            Mbombela Campus,<br>
+                            Mpumalanga, South Africa
+                        </address>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto:info.jobconnect@ump.ac.za" class="footer-link">info.jobconnect@ump.ac.za</a>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <a href="tel:+27130020000" class="footer-link">+27 (13) 002 0000 (UMP General)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    &copy; <%= new Date().getFullYear() %> job-connect. All Rights Reserved by UMP ICT Services.
+                </p>
+                <ul class="social-list">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="/js/script.js" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
 </html>

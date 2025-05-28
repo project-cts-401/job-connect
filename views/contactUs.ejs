@@ -1,321 +1,332 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- --------- UNICONS ---------- -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="/css/Home.css">
     <link rel="stylesheet" href="/home/assets/css/style.css">
-
-    <!-- --------- FONT AWESOME ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer"
-    />
-
+    <link rel="stylesheet" href="/css/contact.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" xintegrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <title>job-connect | Contact Us</title>
 
-    <title>job-connect | home.</title>
-
-    <!-- --------- GOOGLE API --------- -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Fontawesome icon -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <style>
+        /* Minimal inline styles, prefer contact.css for extensive styling */
+        body {
+            font-family: 'Poppins', sans-serif; /* Consistent font from home */
+        }
+    </style>
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap');
-    * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
-    }
-    
-    body {
-        font-family: 'Open Sans', sans-serif;
-        line-height: 1.5;
-    }
-    
-    .contact-bg {
-        height: 40vh;
-        background: hsl(223, 81%, 14%);
-        background-position: 50% 100%;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        text-align: center;
-        color: #fff;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-    
-    .contact-bg h3 {
-        font-size: 1.3rem;
-        font-weight: 400;
-    }
-    
-    .contact-bg h2 {
-        font-size: 3rem;
-        text-transform: uppercase;
-        padding: 0.4rem 0;
-        letter-spacing: 4px;
-    }
-    
-    .line div {
-        margin: 0 0.2rem;
-    }
-    
-    .line div:nth-child(1),
-    .line div:nth-child(3) {
-        height: 3px;
-        width: 70px;
-        background: hsla(0, 0%, 100%, 0.315);
-        border-radius: 5px;
-    }
-    
-    .line {
-        display: flex;
-        align-items: center;
-    }
-    
-    .line div:nth-child(2) {
-        width: 10px;
-        height: 10px;
-        background: hsla(0, 0%, 100%, 0.6);
-        border-radius: 50%;
-    }
-    
-    .text {
-        font-weight: 300;
-        opacity: 0.9;
-    }
-    
-    .contact-bg .text {
-        margin: 1.6rem 0;
-    }
-    
-    .contact-body {
-        max-width: 1320px;
-        margin: 0 auto;
-        padding: 0 1rem;
-    }
-    
-    .contact-info {
-        margin: 2rem 0;
-        text-align: center;
-        padding: 2rem 0;
-    }
-    
-    .contact-info span {
-        display: block;
-    }
-    
-    .contact-info div {
-        margin: 0.8rem 0;
-        padding: 1rem;
-    }
-    
-    .contact-info span .fas {
-        font-size: 2rem;
-        padding-bottom: 0.9rem;
-        color: #000a64;
-    }
-    
-    .contact-info div span:nth-child(2) {
-        font-weight: 500;
-        font-size: 1.1rem;
-    }
-    
-    .contact-info .text {
-        padding-top: 0.4rem;
-    }
-    
-    .contact-form {
-        padding: 2rem 0;
-        border-top: 1px solid #c7c7c7;
-    }
-    
-    .contact-form form {
-        padding-bottom: 1rem;
-    }
-    
-    .form-control {
-        width: 100%;
-        border: 1.5px solid #c7c7c7;
-        border-radius: 5px;
-        padding: 0.7rem;
-        margin: 0.6rem 0;
-        font-family: 'Open Sans', sans-serif;
-        font-size: 1rem;
-        outline: 0;
-    }
-    
-    .form-control:focus {
-        box-shadow: 0 0 6px -3px rgba(48, 48, 48, 1);
-    }
-    
-    .contact-form form div {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        column-gap: 0.6rem;
-    }
-    
-    .send-btn {
-        font-family: 'Open Sans', sans-serif;
-        font-size: 1rem;
-        text-transform: uppercase;
-        color: #fff;
-        background: hsla(224, 34%, 13%, 0.6);
-        border: none;
-        border-radius: 5px;
-        padding: 0.7rem 1.5rem;
-        cursor: pointer;
-        transition: all 0.4s ease;
-    }
-    
-    .send-btn:hover {
-        opacity: 0.8;
-    }
-    
-    .contact-form>div img {
-        width: 85%;
-    }
-    
-    .contact-form>div {
-        margin: 0 auto;
-        text-align: center;
-    }
-    
-    .contact-footer {
-        padding: 2rem 0;
-        background: #000;
-    }
-    
-    .contact-footer h3 {
-        font-size: 1.3rem;
-        color: #fff;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-    
-    .social-links {
-        display: flex;
-        justify-content: center;
-    }
-    
-    .social-links a {
-        text-decoration: none;
-        width: 40px;
-        height: 40px;
-        color: #fff;
-        border: 2px solid #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0.4rem;
-        transition: all 0.4s ease;
-    }
-    
-    .social-links a:hover {
-        color: #f73232;
-        border-color: #f73232;
-    }
-    
-    @media screen and (min-width: 768px) {
-        .contact-bg .text {
-            width: 70%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .contact-info {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-    
-    @media screen and (min-width: 992px) {
-        .contact-bg .text {
-            width: 50%;
-        }
-        .contact-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            align-items: center;
-        }
-    }
-    
-    @media screen and (min-width: 1200px) {
-        .contact-info {
-            grid-template-columns: repeat(4, 1fr);
-        }
-    }
-</style>
 
-<body>
+<body id="top">
 
+    <!--
+      - #HEADER
+    -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <ion-icon name="business-outline"></ion-icon> job-connect
+            </a>
+            <nav class="navbar container" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+                    <li><a href="/AboutUs" class="navbar-link" data-nav-link>About Us</a></li>
+                    <li><a href="/contactUs" class="navbar-link" data-nav-link style="color: hsl(194, 100%, 28%);">Contact Us</a></li>
+                    <li><a href="/jobs" class="navbar-link" data-nav-link>Jobs</a></li>
+                    <% if (locals.session && locals.session.role) { %>
+                        <% if (locals.session.role === 'student') { %>
+                            <li><a href="/applications/my" class="navbar-link" data-nav-link>My Applications</a></li>
+                        <% } else if (locals.session.role === 'admin') { %>
+                            <li><a href="/admin/jobs" class="navbar-link" data-nav-link>My Postings</a></li>
+                            <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link>Post New Job</a></li>
+                        <% } %>
+                    <% } %>
+                </ul>
+            </nav>
+            <% if (locals.session && locals.session.userId) { %>
+                <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+            <% } else { %>
+                <a class="btn btn-secondary" href="/auth/login">Login</a>
+            <% } %>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+            </button>
+        </div>
+    </header>
 
-    <section class="contact-section">
-        <div class="contact-bg">
-            <h3>Get in Touch with Us</h3>
-            <h2>contact us</h2>
-            <div class="line">
-                <div></div>
-                <div></div>
-                <div></div>
+    <main>
+        <article class="article">
+
+            <!--
+              - #CONTACT HERO
+            -->
+            <section class="section contact-hero" aria-label="Contact Us Hero">
+                <div class="container">
+                    <div class="contact-hero-content">
+                        <h1 class="h1 hero-title">Get in <span class="span">Touch</span></h1>
+                        <p class="hero-text">
+                            We're here to help! Whether you have a question about Job-Connect, need support, or want to provide feedback, please don't hesitate to reach out to us.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!--
+              - #CONTACT DETAILS & FORM
+            -->
+            <section class="section contact-main" aria-label="Contact Details and Form">
+                <div class="container">
+                    <div class="contact-grid">
+                        <div class="contact-info">
+                            <h2 class="h2 section-title-sub">Contact Information</h2>
+                            <p class="section-text">
+                                You can reach the Job-Connect support team or relevant UMP offices through the following channels:
+                            </p>
+                            <ul class="contact-details-list">
+                                <li>
+                                    <div class="contact-item-icon"><i class="ri-map-pin-line"></i></div>
+                                    <div class="contact-item-content">
+                                        <h3 class="h3 contact-item-title">Main Campus Address</h3>
+                                        <address>
+                                            University of Mpumalanga<br>
+                                            Cnr R40 and D725 Roads, Mbombela 1200<br>
+                                            Mpumalanga Province, South Africa
+                                        </address>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-item-icon"><i class="ri-mail-send-line"></i></div>
+                                    <div class="contact-item-content">
+                                        <h3 class="h3 contact-item-title">Job-Connect Support Email</h3>
+                                        <a href="mailto:jobconnect.support@ump.ac.za" class="contact-link">jobconnect.support@ump.ac.za</a>
+                                        <p class="contact-note">(For platform technical issues & general inquiries)</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-item-icon"><i class="ri-phone-line"></i></div>
+                                    <div class="contact-item-content">
+                                        <h3 class="h3 contact-item-title">UMP Student Enquiries</h3>
+                                        <a href="tel:+27130020001" class="contact-link">+27 (13) 002 0001</a>
+                                        <p class="contact-note">(For general student-related matters)</p>
+                                    </div>
+                                </li>
+                                 <li>
+                                    <div class="contact-item-icon"><i class="ri-building-4-line"></i></div>
+                                    <div class="contact-item-content">
+                                        <h3 class="h3 contact-item-title">UMP Career Services</h3>
+                                         <p>Contact Career Services directly for CV workshops, interview skills, etc. (Details available on the main UMP website)</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="contact-item-icon"><i class="ri-time-line"></i></div>
+                                    <div class="contact-item-content">
+                                        <h3 class="h3 contact-item-title">Support Hours</h3>
+                                        <p>Monday - Friday: 08:00 AM - 04:30 PM (SAST)</p>
+                                        <p class="contact-note">Closed on weekends and public holidays.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="contact-form-container">
+                            <h2 class="h2 section-title-sub">Send Us a Message</h2>
+                            <p class="section-text">
+                                Fill out the form below, and our team will get back to you as soon as possible.
+                            </p>
+                            <% if (locals.message) { %>
+                                <div class="form-message <%= message.type %>">
+                                    <%= message.text %>
+                                </div>
+                            <% } %>
+                            <form action="/contactUs/send" method="POST" class="contact-form hero-form">
+                                <div class="input-wrapper">
+                                    <label for="name" class="input-label">Full Name:</label>
+                                    <input type="text" name="name" id="name" placeholder="Enter your full name" class="input-field" required
+                                    value="<%= locals.formData && formData.name ? formData.name : (locals.session && locals.session.userName ? locals.session.userName : '') %>">
+                                </div>
+                                <div class="input-wrapper">
+                                    <label for="email" class="input-label">Email Address:</label>
+                                    <input type="email" name="email" id="email" placeholder="Enter your email address" class="input-field" required
+                                    value="<%= locals.formData && formData.email ? formData.email : (locals.session && locals.session.userEmail ? locals.session.userEmail : '') %>">
+                                </div>
+                                <div class="input-wrapper">
+                                    <label for="subject" class="input-label">Subject:</label>
+                                    <input type="text" name="subject" id="subject" placeholder="What is your message about?" class="input-field" required
+                                    value="<%= locals.formData && formData.subject ? formData.subject : '' %>">
+                                </div>
+                                <div class="input-wrapper">
+                                    <label for="message" class="input-label">Message:</label>
+                                    <textarea name="message" id="message" rows="6" placeholder="Write your message here..." class="input-field textarea-field" required><%= locals.formData && formData.message ? formData.message : '' %></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary form-submit-btn">Send Message <i class="ri-send-plane-fill"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--
+              - #MAP SECTION
+            -->
+            <section class="section contact-map" aria-label="Our Location">
+                <div class="container">
+                    <h2 class="h2 section-title">Find Us on Campus</h2>
+                    <div class="map-responsive">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3603.033548627583!2d30.981775600000002!3d-25.4371419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ee835ddde836b49%3A0xfe875f0851caa5cf!2sUniversity%20of%20Mpumalanga!5e0!3m2!1sen!2sza!4v1748436689306!5m2!1sen!2sza" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                </div>
+            </section>
+
+            <!--
+              - #FAQ SECTION
+            -->
+            <section class="section faq-section" aria-label="Frequently Asked Questions">
+                <div class="container">
+                    <h2 class="h2 section-title">Frequently Asked Questions</h2>
+                    <div class="faq-accordion">
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>How do I register for Job-Connect as a student?</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>You can register by visiting the <a href="/auth/register/student" class="inline-link">Student Registration page</a> and filling in your details. You'll need your UMP student number.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>I forgot my password. How can I reset it?</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Currently, our platform does not have an automated password reset. Please contact <a href="mailto:jobconnect.support@ump.ac.za" class="inline-link">jobconnect.support@ump.ac.za</a> with your student/staff number for assistance.</p>
+                            </div>
+                        </div>
+                        <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>How long does it take for a department to respond to my job application?</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Response times can vary depending on the department and the number of applications received. You can track the status of your application on the <a href="/applications/my" class="inline-link">My Applications</a> page. If a significant amount of time has passed after the application deadline, you might consider following up with the contact person listed in the job post, if available, or with UMP Career Services.</p>
+                            </div>
+                        </div>
+                         <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>Who can I contact for technical issues with the Job-Connect platform?</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>For any technical difficulties, such as login problems, errors on the site, or issues with submitting applications, please email our support team at <a href="mailto:jobconnect.support@ump.ac.za" class="inline-link">jobconnect.support@ump.ac.za</a>. Please include your student/staff number and a clear description of the issue, including any error messages you see.</p>
+                            </div>
+                        </div>
+                         <div class="faq-item">
+                            <button class="faq-question" aria-expanded="false">
+                                <span>Are the jobs listed only for current UMP students?</span>
+                                <i class="ri-arrow-down-s-line"></i>
+                            </button>
+                            <div class="faq-answer">
+                                <p>Yes, Job-Connect is primarily designed for currently registered University of Mpumalanga students seeking on-campus employment opportunities. Eligibility criteria might be specified in individual job postings.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </article>
+    </main>
+
+    <!--
+      - #FOOTER
+    -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="footer-brand">
+                    <a href="/" class="logo">
+                        <ion-icon name="business-outline"></ion-icon> job-connect
+                    </a>
+                    <p class="footer-text">
+                        Your central hub for on-campus employment at the University of Mpumalanga.
+                    </p>
+                </div>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Company</p></li>
+                    <li><a href="/AboutUs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">About us</span></a></li>
+                    <li><a href="/jobs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Job Listings</span></a></li>
+                    <li><a href="/contactUs" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Contact</span></a></li>
+                </ul>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Useful Links</p></li>
+                    <li><a href="#" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Terms of Services</span></a></li>
+                    <li><a href="#" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Privacy Policy</span></a></li>
+                     <% if (locals.session && locals.session.userId) { %>
+                        <li><a href="/auth/logout" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Logout</span></a></li>
+                    <% } else { %>
+                        <li><a href="/auth/login" class="footer-link"><ion-icon name="chevron-forward"></ion-icon><span class="span">Login</span></a></li>
+                    <% } %>
+                </ul>
+                <ul class="footer-list">
+                    <li><p class="footer-list-title">Contact Details</p></li>
+                    <li class="footer-item">
+                        <ion-icon name="location-outline"></ion-icon>
+                        <address class="address">
+                            University of Mpumalanga,<br>
+                            Mbombela Campus,<br>
+                            Mpumalanga, South Africa
+                        </address>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <a href="mailto:jobconnect.support@ump.ac.za" class="footer-link">jobconnect.support@ump.ac.za</a>
+                    </li>
+                    <li class="footer-item">
+                        <ion-icon name="call-outline"></ion-icon>
+                        <a href="tel:+27130020001" class="footer-link">+27 (13) 002 0001 (UMP Student Enquiries)</a>
+                    </li>
+                </ul>
             </div>
-            <!-- <p class="text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda iste facilis quos impedit fuga nobis modi debitis laboriosam velit reiciendis quisquam alias corporis, maxime enim, optio ab dolorum sequi qui.</p> -->
         </div>
-
-
-        <div class="contact-body">
-            <div class="contact-info">
-                <div>
-                    <span><i class = "fas fa-mobile-alt"></i></span>
-                    <span>Phone No.</span>
-                    <span class="text">1-0000-0000-2</span>
-                </div>
-                <div>
-                    <span><i class = "fas fa-envelope-open"></i></span>
-                    <span>E-mail</span>
-                    <span class="text">220330220@ump.ac.za</span>
-                </div>
-                <div>
-                    <span><i class = "fas fa-map-marker-alt"></i></span>
-                    <span>Address</span>
-                    <span class="text">Cnr R40 and D725 Roads, Mbombela 1200</span>
-                </div>
-                <div>
-                    <span><i class = "fas fa-clock"></i></span>
-                    <span>Opening Hours</span>
-                    <span class="text">Monday - Friday (9:00 AM to 4:00 PM)</span>
-                </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    &copy; <%= new Date().getFullYear() %> job-connect. All Rights Reserved by UMP ICT Services.
+                </p>
+                <ul class="social-list">
+                    <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+                    <li><a href="#" class="social-link"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+                </ul>
             </div>
-
-
         </div>
+    </footer>
 
-        <div class="map">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d223700.1490386933!2d-97.11558670486288!3d28.829485511234168!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864266db2e2dac3b%3A0xeee20d566f63267d!2sVictoria%2C%20TX%2C%20USA!5e0!3m2!1sen!2snp!4v1604921178092!5m2!1sen!2snp"
-                width="100%" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-        </div>
+    <!--
+      - #BACK TO TOP
+    -->
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
 
-        <%- include('./partials/footer.ejs') -%>
-    </section>
-
-
+    <!--
+      - custom js link
+    -->
+    <script src="/js/script.js" defer></script>
+    <script src="/js/contact.js" defer></script> <!--
+      - ionicon link
+    -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
-
 </html>

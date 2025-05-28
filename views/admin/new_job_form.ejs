@@ -4,80 +4,137 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- --------- UNICONS ---------- -->
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 
-    <!-- --------- CSS ---------- -->
-    <link rel="stylesheet" href="/css/Home.css">
-    <!-- <link rel="stylesheet" href="/projects.css"> -->
+    <link rel="stylesheet" href="/home/assets/css/style.css"> <link rel="stylesheet" href="/css/admin.css"> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" xintegrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
 
-    <!-- --------- FONT AWESOME ---------- -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css" 
-    integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+    <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
 
-    <!-- --------- FAVICON ---------- -->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/x-icon">
+    <title>job-connect | Create New Job</title>
 
-    <title>job-connect | job-upload.</title>
-
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-    <h1>Create New Job Post</h1>
 
-    <% if (typeof error !== 'undefined' && error) { %>
-        <div class="error"><%= error %></div>
-    <% } %>
+<body id="top">
 
-    <form action="/admin/jobs" method="POST">
-        <div class="form-group">
-            <label for="title">Job Title:</label>
-            <input type="text" id="title" name="title" required>
+    <header class="header" data-header>
+        <div class="container">
+            <a href="/" class="logo">
+                <ion-icon name="business-outline"></ion-icon> job-connect
+            </a>
+            <nav class="navbar container" data-navbar>
+                <ul class="navbar-list">
+                    <li><a href="/" class="navbar-link" data-nav-link>Home</a></li>
+                    <li><a href="/AboutUs" class="navbar-link" data-nav-link>About Us</a></li>
+                    <li><a href="/contactUs" class="navbar-link" data-nav-link>Contact Us</a></li>
+                    <li><a href="/jobs" class="navbar-link" data-nav-link>Jobs</a></li>
+                    <% if (locals.session && locals.session.role === 'admin') { %>
+                        <li><a href="/admin/jobs" class="navbar-link" data-nav-link>My Postings</a></li>
+                        <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link style="color: hsl(194, 100%, 28%);">Post New Job</a></li>
+                    <% } %>
+                </ul>
+            </nav>
+            <% if (locals.session && locals.session.userId) { %>
+                <a href="/auth/logout" class="btn btn-secondary">Logout</a>
+            <% } else { %>
+                <a class="btn btn-secondary" href="/auth/login">Login</a>
+            <% } %>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <ion-icon name="menu-outline" aria-hidden="true" class="menu-icon"></ion-icon>
+                <ion-icon name="close-outline" aria-hidden="true" class="close-icon"></ion-icon>
+            </button>
         </div>
-        <div class="form-group">
-            <label for="job_type">Job Type:</label>
-            <select id="job_type" name="job_type" required>
-                <option value="" disabled selected>Select Job Type</option>
-                <option value="Tutor">Tutor</option>
-                <option value="Mentor">Mentor</option>
-                <option value="Technician">Technician</option>
-                <option value="Research Assistant">Research Assistant</option>
-                <option value="Admin Assistant">Admin Assistant</option>
-                <option value="Other">Other</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="description">Job Description:</label>
-            <textarea id="description" name="description" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="requirements">Requirements:</label>
-            <textarea id="requirements" name="requirements"></textarea>
-        </div>
-        <div class="form-group">
-            <label for="department">Department (Optional):</label>
-            <input type="text" id="department" name="department">
-        </div>
-         <div class="form-group">
-            <label for="deadline">Application Deadline (Optional):</label>
-            <input type="date" id="deadline" name="deadline">
-        </div>
+    </header>
 
-        <button type="submit">Post Job</button>
-    </form>
+    <main>
+        <article class="section admin-dashboard" aria-label="Create New Job">
+            <div class="container">
 
-    <p style="margin-top: 20px;"><a href="/admin/jobs">Back to My Job Postings</a></p>
+                <div class="admin-page-header">
+                    <h1 class="h1 page-title">Create New Job Post</h1>
+                    <a href="/admin/jobs" class="btn btn-secondary"><i class="ri-arrow-left-line"></i> Back to My Job Postings</a>
+                </div>
 
+                <div class="card form-card">
+                     <% if (typeof error !== 'undefined' && error) { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= error %>
+                        </div>
+                    <% } %>
+                    <form action="/admin/jobs" method="POST" class="job-creation-form">
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="title">Job Title</label>
+                                <input type="text" id="title" name="title" class="input-field" placeholder="e.g., Library Assistant, Peer Tutor for Computer Science" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="job_type">Job Type</label>
+                                <select id="job_type" name="job_type" class="input-field" required>
+                                    <option value="" disabled selected>Select Job Type</option>
+                                    <option value="Tutor">Tutor</option>
+                                    <option value="Mentor">Mentor</option>
+                                    <option value="Technician">Technician</option>
+                                    <option value="Research Assistant">Research Assistant</option>
+                                    <option value="Admin Assistant">Admin Assistant</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+
+                             <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" id="department" name="department" class="input-field" placeholder="e.g., Faculty of Science">
+                                <small>Optional: The department or faculty posting the job.</small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="description">Job Description</label>
+                                <textarea id="description" name="description" class="input-field" rows="6" placeholder="Provide a detailed description of the job responsibilities, tasks, and what a typical day looks like." required></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="requirements">Requirements</label>
+                                <textarea id="requirements" name="requirements" class="input-field" rows="4" placeholder="List the required skills, qualifications, year of study, specific courses completed, etc."></textarea>
+                                 <small>Optional: List each requirement on a new line.</small>
+                            </div>
+
+                             <div class="form-group">
+                                <label for="deadline">Application Deadline</label>
+                                <input type="date" id="deadline" name="deadline" class="input-field">
+                                <small>Optional: After this date, the job will no longer be visible to students.</small>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Post Job <i class="ri-send-plane-fill"></i></button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </article>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p class="copyright">
+                    © <%= new Date().getFullYear() %> job-connect. All Rights Reserved by UMP ICT Services.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
+
+    <script src="/js/script.js" defer></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

@@ -1,0 +1,272 @@
+/*-----------------------------------*\
+  #about.css
+\*-----------------------------------*/
+
+/* Ensure this path is correct if you place it in public/css/about.css */
+
+/*-----------------------------------*\
+  #ABOUT HERO SECTION
+\*-----------------------------------*/
+.about-hero {
+    background-color: var(--oxford-blue_60); /* Similar to home hero overlay but lighter */
+    padding-block: 80px; /* Align with home hero padding */
+    text-align: center;
+    background-image: url('https://www.ump.ac.za/CMSPages/GetFile.aspx?guid=d26e6308-9636-44db-9db7-b5af76c3d394'); /* UMP image */
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+}
+
+.about-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(15, 31, 40, 0.6); /* Darker overlay for text readability */
+    z-index: 1;
+}
+
+.about-hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 60px 20px; /* Adjust padding as needed */
+}
+
+.about-hero .hero-title {
+    color: var(--white);
+    font-size: var(--fs-1); /* Use existing hero title size */
+    margin-bottom: 20px;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.about-hero .hero-title .span {
+    color: var(--green-pigment); /* Highlight color from your theme */
+}
+
+.about-hero .hero-text {
+    color: var(--mint-cream); /* Light text for readability on dark background */
+    font-size: var(--fs-4);
+    line-height: 1.7;
+    max-width: 65ch;
+    margin-inline: auto;
+}
+
+/*-----------------------------------*\
+  #OUR MISSION SECTION
+\*-----------------------------------*/
+.about-mission {
+    padding-block: var(--section-padding);
+}
+
+.about-mission-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+.about-mission-text .section-title {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.about-mission-text .section-text {
+    margin-bottom: 15px;
+    line-height: 1.7;
+    color: var(--eerie-black);
+}
+
+.about-mission-image {
+    border-radius: var(--radius-12);
+    overflow: hidden;
+    box-shadow: var(--shadow-3);
+}
+
+.about-mission-image .img-cover {
+    width: 100%;
+    height: 100%; /* Ensure image covers the holder */
+    object-fit: cover;
+}
+
+/*-----------------------------------*\
+  #WHAT WE DO / SERVICE SECTION
+\*-----------------------------------*/
+/* Uses existing .service, .service-list, .service-card from style.css */
+/* Minor adjustments if needed */
+.about-what-we-do .section-title,
+.about-what-we-do .section-text {
+    text-align: center;
+}
+.about-what-we-do .section-text {
+    margin-bottom: 40px; /* Spacing before the cards */
+}
+
+.about-what-we-do .service-card .card-icon ion-icon {
+    font-size: 36px; /* Slightly larger icons if desired */
+}
+
+/* Style for inline links within text */
+.inline-link {
+    color: var(--green-pigment);
+    text-decoration: underline;
+    font-weight: 500; /* Make them slightly bolder */
+}
+
+.inline-link:hover,
+.inline-link:focus {
+    color: var(--sea-green); /* Darker shade on hover from your theme */
+    text-decoration: none;
+}
+
+/*-----------------------------------*\
+  #STUDENT GUIDE SECTION
+\*-----------------------------------*/
+.how-to-use-student {
+    padding-block: var(--section-padding);
+}
+
+.how-to-use-student .section-title {
+    margin-bottom: 20px;
+}
+
+.how-to-use-student .section-text {
+    margin-bottom: 30px;
+    text-align: center;
+    max-width: 80ch;
+}
+
+.how-to-use-student .guide-steps {
+    max-width: 800px;
+    margin-inline: auto;
+    text-align: left;
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--radius-12);
+    box-shadow: var(--shadow-2);
+}
+
+.how-to-use-student ol li {
+    color: var(--eerie-black);
+    font-size: 1.6rem;
+}
+
+.how-to-use-student ol li strong {
+    color: var(--oxford-blue);
+    font-weight: 600;
+}
+
+.how-to-use-student ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.how-to-use-student ul li {
+    font-size: 1.5rem;
+    color: var(--cadet-gray);
+    margin-bottom: 5px;
+}
+
+/*-----------------------------------*\
+  #OUR VALUES SECTION
+\*-----------------------------------*/
+.about-values {
+    padding-block: var(--section-padding);
+    background-color: rgba(0, 0, 0, 0.056); /* Match the other light-bg section */
+}
+
+.about-values .section-title {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+}
+
+.value-item {
+    text-align: center;
+    padding: 25px;
+    border-radius: var(--radius-12);
+    background-color: var(--white);
+    box-shadow: var(--shadow-1);
+    transition: var(--transition);
+}
+
+.value-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-2);
+}
+
+.value-icon {
+    font-size: 3rem; /* Using rem for scalability */
+    color: var(--green-pigment);
+    margin-bottom: 15px;
+    display: inline-block;
+}
+
+.value-title {
+    color: var(--oxford-blue);
+    font-size: var(--fs-3);
+    margin-bottom: 10px;
+}
+
+.value-text {
+    font-size: 1.5rem; /* Slightly smaller than main section text */
+    line-height: 1.6;
+    color: var(--cadet-gray);
+}
+
+/*-----------------------------------*\
+  #JOIN US CTA SECTION
+\*-----------------------------------*/
+/* Uses existing .contact section styles from style.css */
+.contact .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Space between buttons */
+    margin-top: 30px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+
+.contact .cta-buttons .btn {
+    min-width: 180px; /* Ensure buttons have a decent width */
+    text-align: center;
+}
+
+
+/*-----------------------------------*\
+  #MEDIA QUERIES (for About Us specific sections)
+\*-----------------------------------*/
+
+@media (min-width: 768px) {
+    .about-mission-content {
+        grid-template-columns: 1fr 0.8fr; /* Text takes more space, then image */
+        gap: 50px;
+    }
+
+    .about-mission-text .section-title {
+        font-size: var(--fs-2); /* Ensure consistency */
+    }
+
+    .values-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns on tablets */
+    }
+}
+
+@media (min-width: 992px) {
+    .about-hero-content {
+        padding: 80px 40px;
+    }
+
+    .about-mission-content {
+        grid-template-columns: 1.2fr 1fr; /* Adjust ratio for larger screens */
+    }
+    .values-grid {
+        grid-template-columns: repeat(4, 1fr); /* Four columns on larger desktops */
+    }
+}
