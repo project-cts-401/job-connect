@@ -52,6 +52,20 @@ app.use('/Jobs', jobRoutes); // Requires login (students apply within specific P
 app.use('/applications', requireLogin, requireStudent, applicationRoutes); // Requires login AND student role
 app.use('/contactUs', require("./routes/contact"));
 
+app.use((req, res, next) => {
+    res.status(404).render('error/error404', { requestedUrl: req.originalUrl });
+});
+
+app.use((err, req, res, next) => {
+    console.error("Unhandled Error:", err.stack);
+    
+    const statusCode = err.status || 500;
+
+    res.status(statusCode).render('error/error500', {
+        error: err,
+    });
+});
+
 const PORT = 2403;
 
 app.listen(PORT, () => {

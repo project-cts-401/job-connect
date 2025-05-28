@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Error | Job-Connect</title>
+    <link rel="stylesheet" href="/css/style.css"> <link rel="stylesheet" href="/css/error.css"> <link rel="shortcut icon" href="/images/favicon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+<body class="error-page-body">
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="ri-server-line"></i>
+        </div>
+        <h1 class="error-title">500 - Internal Server Error</h1>
+        <p class="error-message">We're sorry, but something went wrong on our end. Our team has been notified, and we're working to fix it.</p>
+        <p class="error-suggestion">Please try again in a few moments. If the problem persists, you can:</p>
+        <ul class="error-links">
+            <li><a href="/">Return to the Homepage</a></li>
+            <li><a href="/contactUs">Contact Support</a> if you need immediate assistance.</li>
+        </ul>
+        <% if (process.env.NODE_ENV === 'development' && typeof error !== 'undefined' && error) { %>
+            <div class="error-debug-details">
+                <h2>Error Details (Development Mode):</h2>
+                <pre><%= error.stack %></pre>
+            </div>
+        <% } %>
+    </div>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/error.css" />
+    <title> Job Connect | 500 Server Error</title>
+  </head>
+  <body>
+    <nav>
+      <div class="nav__logo"><a href="#">UMP Job Connect</a></div>
+    </nav>
+    <div class="container">
+      <div class="header">
+        <h1>500</h1>
+        <h3>...........!</h3>
+      </div>
+      <img src="https://github.com/WebDesignMastery/Custeon_404_12-04-23/blob/main/assets/bg.jpg?raw=true" alt="not found" />
+      <div class="footer">
+        <p>
+          We're sorry, the page you requested could not be found. Please go back
+          to the homepage!
+        </p>
+        <button>GO HOME</button>
+      </div>
+    </div>
+  </body>
+</html>
