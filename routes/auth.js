@@ -53,7 +53,7 @@ router.post('/register/student', (req, res) => {
 });
 
 router.get('/register/admin', (req, res) => {
-    res.render('admins/register_admin', { error: null });
+    res.render('admins/register_admin', { error: message });
 });
 
 router.post('/register/admin', (req, res) => {
@@ -216,8 +216,5 @@ router.get('/logout', (req, res) => {
         res.redirect('/auth/login');
     });
 });
-
-
-
 
 module.exports = router;

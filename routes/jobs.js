@@ -203,17 +203,33 @@ router.get('/:jobId', (req, res) => {
             return res.status(500).send("Error fetching job details.");
         }
         if (!job) {
-            // Optionally use flash messages here too
-            // req.flash('error', 'Job not found.');
-            // return res.redirect('/jobs');
-            return res.status(404).render('error', { message: "Job not found." }); // Assuming you have an error view
+            req.flash('error', 'Job not found.');
+            return res.redirect('/jobs');
         }
-        // Pass flash messages if they exist
-        res.render('jobs/detail_job', {
-            job: job,
-            error: req.flash ? req.flash('error') : null, // Use flash if available
-            message: req.flash ? req.flash('success') : null
-        });
+        // Check if deadline has passed
+        const now = new Date();
+        const deadline = job.deadline ? new Date(job.deadline) : null;
+        const isExpired = deadline && now > deadline;
+        // Update status to 'Closed' if deadline has passed
+        if (isExpired && job.status === 'Open') {
+            db.run(`UPDATE job_posts SET status = 'Closed' WHERE id = ?`, [jobId], (updateErr) => {
+                if (updateErr) {
+                    console.error("DB Error updating job status:", updateErr.message);
+                }
+                job.status = 'Closed'; // Update local job object for rendering
+                renderResponse();
+            });
+        } else {
+            renderResponse();
+        }
+        function renderResponse() {
+            res.render('jobs/detail_job', {
+                job,
+                error: req.flash ? req.flash('error') : null,
+                message: req.flash ? req.flash('success') : null,
+                isExpired // Pass isExpired to template
+            });
+        }
     });
 });
 
