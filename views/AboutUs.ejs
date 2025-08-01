@@ -51,6 +51,7 @@
                     <% if (locals.session && locals.session.role) { %>
                         <% if (locals.session.role === 'student') { %>
                             <li><a href="/applications/my" class="navbar-link" data-nav-link>My Applications</a></li>
+                            <li><a href="/student/profile" class="navbar-link" data-nav-link>Profile</a></li>
                         <% } else if (locals.session.role === 'admin') { %>
                             <li><a href="/admin/jobs" class="navbar-link" data-nav-link>My Postings</a></li>
                             <li><a href="/admin/jobs/new" class="navbar-link" data-nav-link>Post New Job</a></li>

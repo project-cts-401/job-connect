@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - UMP Job Connect</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/Home.css">
+    <link rel="stylesheet" href="/home/assets/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body id="top" class="bg-gray-100">
+    <%- include('../partials/header') %>
+    <main>
+        <section class="section edit-profile-section py-10">
+            <div class="container mx-auto px-4">
+                <h1 class="text-3xl font-bold mb-6">Edit Profile</h1>
+                <% if (error) { %>
+                    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                        <%= error %>
+                    </div>
+                <% } %>
+                <% if (message) { %>
+                    <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
+                        <%= message %>
+                    </div>
+                <% } %>
+                <form action="/student/profile/edit" method="POST" class="bg-white p-6 rounded-lg shadow">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium">Name</label>
+                            <input type="text" id="name" name="name" value="<%= student.name %>" required
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium">Email</label>
+                            <input type="email" id="email" name="email" value="<%= student.email %>" required
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium">New Password (optional)</label>
+                            <input type="password" id="password" name="password"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="confirmPassword" class="block text-sm font-medium">Confirm Password</label>
+                            <input type="password" id="confirmPassword" name="confirmPassword"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="title" class="block text-sm font-medium">Title (e.g., Mr/Ms)</label>
+                            <input type="text" id="title" name="title" value="<%= appDetails.title || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="initials" class="block text-sm font-medium">Initials</label>
+                            <input type="text" id="initials" name="initials" value="<%= appDetails.initials || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="identity_number" class="block text-sm font-medium">Identity Number</label>
+                            <input type="text" id="identity_number" name="identity_number" value="<%= appDetails.identity_number || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="cellular_phone" class="block text-sm font-medium">Phone Number</label>
+                            <input type="tel" id="cellular_phone" name="cellular_phone" value="<%= appDetails.cellular_phone || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="postal_address" class="block text-sm font-medium">Postal Address</label>
+                            <input type="text" id="postal_address" name="postal_address" value="<%= appDetails.postal_address || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="postal_code" class="block text-sm font-medium">Postal Code</label>
+                            <input type="text" id="postal_code" name="postal_code" value="<%= appDetails.postal_code || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="residential_address" class="block text-sm font-medium">Residential Address</label>
+                            <input type="text" id="residential_address" name="residential_address" value="<%= appDetails.residential_address || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="residential_code" class="block text-sm font-medium">Residential Code</label>
+                            <input type="text" id="residential_code" name="residential_code" value="<%= appDetails.residential_code || '' %>"
+                                   class="mt-1 w-full p-2 border rounded focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Save Changes</button>
+                        <a href="/student/profile" class="ml-4 text-gray-600 hover:underline">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+    <%- include('../partials/footer') %>
+    <a href="#top" class="back-top-btn fixed bottom-4 right-4 bg-blue-500 text-white p-2 rounded-full" aria-label="back to top">
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a>
+    <script src="/home/assets/js/script.js" defer></script>
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>

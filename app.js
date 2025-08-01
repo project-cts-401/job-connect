@@ -46,6 +46,9 @@ app.use('/', require("./routes/home"));
 app.use('/auth', require("./routes/auth"));
 app.use('/AboutUs', require("./routes/about"));
 
+const studentRouter = require('./routes/student');
+app.use('/student', studentRouter);
+
 // Apply middleware directly to route groups
 app.use('/Admin', requireLogin, requireAdmin, adminRoutes); // Requires login AND admin role
 app.use('/Jobs', jobRoutes); // Requires login (students apply within specific POST route)
