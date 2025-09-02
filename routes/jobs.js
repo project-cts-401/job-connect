@@ -5,7 +5,113 @@ const db = require('../database/connection'); // Assuming your db connection is 
 const multer = require('multer'); // <-- Added for file uploads
 const path = require('path'); // <-- Added for handling file paths
 const fs = require('fs'); // <-- Added for file system operations (checking/deleting files)
+const nodemailer = require('nodemailer');
 const { requireLogin, requireAdmin, requireStudent } = require('../middleware/authMiddleware');
+
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+    auth: {
+        user: 'thobejanetheo@gmail.com',
+        pass: 'ypue gyqz szbu vjen',
+    },
+    tls: {
+        rejectUnauthorized: false // Use this with caution, only if necessary for self-signed certs etc.
+    }
+});
+
+// const sendVerificationEmail = async (email, token, name) => {
+//     const verificationLink = `${'https://www.easyread.co.za'}/auth/verify/${token}`; // Ensure BASE_URL is set in .env
+//     const mailOptions = {
+//         from: `"no-reply@easyread.co.za"`,
+//         to: email,
+//         subject: 'Verify Your Email Address for Your E-commerce Account',
+//         html: `
+//             <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+//                 <h2>Email Verification</h2>
+//                 <p>Hello ${name},</p>
+//                 <p>Thank you for registering on our easyread online bookstore platform. To complete your registration and activate your account, please verify your email address by clicking the link below:</p>
+//                 <p style="margin: 20px 0;">
+//                     <a href="${verificationLink}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">Verify Email Address</a>
+//                 </p>
+//                 <p>If the button above does not work, please copy and paste the following link into your web browser:</p>
+//                 <p><a href="${verificationLink}">${verificationLink}</a></p>
+//                 <p>This link will expire in 24 hours.</p>
+//                 <p>If you did not create an account, please ignore this email.</p>
+//                 <p>Best regards,</p>
+//                 <p>The Easyread-Bookstore Team</p>
+//             </div>
+//         `
+//     };
+
+//     try {
+//         await transporter.sendMail(mailOptions);
+//         console.log(`Verification email sent to ${email}`);
+//     } catch (error) {
+//         console.error(`Error sending verification email to ${email}:`, error);
+//         `throw new AppError('Failed to send verification email.', 500);`
+//     }
+// };
+// sendApplicationExistsEmail();
+const sendApplicationReceivedEmail = async (job_post_id) => {
+    
+    const mailOptions = {
+        from: `"no-reply@ump-job-connect.co.za"`,
+        to: '220330220@ump.ac.za',
+        subject: 'Application Received - Job Connect',
+        html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <h2>Application received.</h2>
+                <p>Hello,</p>
+                <p>You are receiving this because you (or someone else) have successfully made an application to...</p>
+                <p style="margin: 20px 0;">
+                    <a href="http://localhost:3000/jobs/${job_post_id}" style="display: inline-block; padding: 10px 20px; background-color: #007bff; color: #ffffff; text-decoration: none; border-radius: 5px;">Reset Your Password</a>
+                </p>
+                
+                <p>You can track the application on the link: <a href="http://localhost:3000/applications/my">http://localhost:3000/applications/my</a>.</p>
+                <p>Best regards,</p>
+                <p>The UmpJobConnect Team</p>
+            </div>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log(`Password reset email sent to ${email}`);
+    } catch (error) {
+        console.error(`Error sending password reset email to ${email}:`, error);
+        throw new AppError('Failed to send password reset email.', 500); // Throw AppError here
+    }
+};
+
+const sendApplicationExistsEmail = async () => {
+    
+    const mailOptions = {
+        from: `"no-reply@ump-job-connect.co.za"`,
+        to: '220330220@ump.ac.za',
+        subject: 'Application Already Exists - Job Connect',
+        html: `
+            <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+                <h2>Application Failed.</h2>
+                <p>Hello,</p>
+                <p>You have already appied for this job.</p>
+                
+                <p>Best regards,</p>
+                <p>The UmpJobConnect Team</p>
+            </div>
+        `
+    };
+
+    try {
+        await transporter.sendMail(mailOptions);
+        // console.log(`Password reset email sent to ${email}`);
+    } catch (error) {
+        // console.error(`Error sending password reset email to ${email}:`, error);
+        throw new AppError('Failed to send password reset email.', 500); // Throw AppError here
+    }
+};
 
 // --- Multer Configuration (Place near the top) ---
 const uploadDir = path.join(__dirname, '..', 'uploads', 'application_docs'); // Store uploads
@@ -277,6 +383,7 @@ router.get('/:jobId/apply', requireLogin, (req, res) => {
             }
             if (existingApp) {
                 flashError('error', 'You have already applied for this job.');
+                sendApplicationExistsEmail(); // Notify student
                 return res.redirect(`/jobs/${jobId}`);
             }
 
@@ -420,6 +527,7 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
             if (existingApp) {
                 cleanupFiles(req.files); // Clean up files
                 flashError('error', 'You have already applied for this job.'); // Use flash for redirect
+                sendApplicationExistsEmail();
                 return res.redirect(`/jobs/${jobId}`); // Redirect back to detail page
             }
 
@@ -458,7 +566,8 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
 
                 // 9. Success! Redirect with success message
                 if (req.flash) req.flash('success', 'Application submitted successfully!');
-                res.redirect('/applications/my'); // Redirect to student's application list
+                res.redirect('/applications/my');
+                sendApplicationReceivedEmail(jobId); // Notify student
             }); // End db.run
         }); // End db.get (check existing)
     }); // End of upload middleware callback

@@ -6,6 +6,8 @@ const { requireLogin, requireStudent } = require('../middleware/authMiddleware')
 
 const saltRounds = 10;
 
+
+
 // GET /student/profile - View student profile
 router.get('/profile', requireLogin, requireStudent, (req, res) => {
     const studentId = req.session.userId;
