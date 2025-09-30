@@ -3,321 +3,639 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- /img/favicon.jpg -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply for
-        <%= job.title %> | UMP Job Connect</title>
-
-    <link rel="stylesheet" href="/home/assets/css/style.css">
+    <title>Apply for <%= job.title %> | UMP Job Connect</title>
+    <link rel="shortcut icon" href="/img/favicon.jpg" type="image/x-icon">
     <style>
-        body {
-            font-family: sans-serif;
-            line-height: 1.6;
-            margin: 20px;
-            background-color: #f4f4f4;
+        /* Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+        }
+
         .container {
             max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 30px;
+            margin: 0 auto;
+            background: white;
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            padding: 30px;
         }
-        
-        h1,
-        h2 {
+
+        h1 {
             text-align: center;
-            color: #333;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-style: italic;
+            margin-bottom: 25px;
+            color: #7f8c8d;
+        }
+
+        /* Form Steps */
+        .form-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-steps::before {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #e0e0e0;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e0e0e0;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .step.active .step-circle {
+            background: #3498db;
+        }
+
+        .step.completed .step-circle {
+            background: #2ecc71;
+        }
+
+        .step-label {
+            font-size: 12px;
+            text-align: center;
+            color: #95a5a6;
+        }
+
+        .step.active .step-label {
+            color: #3498db;
+            font-weight: bold;
+        }
+
+        /* Form Sections */
+        .form-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            color: #2c3e50;
+        }
+
+        /* Form Elements */
+        .form-group {
             margin-bottom: 20px;
         }
-        
-        h1 {
-            font-size: 1.8em;
-        }
-        
-        h2 {
-            font-size: 1.4em;
-            text-align: left;
-            margin-top: 25px;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
+
         label {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #555;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
         }
-        
+
         input[type="text"],
-        input[type="email"],
         input[type="tel"],
-        input[type="number"],
         input[type="date"],
         textarea {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
+            padding: 12px;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            box-sizing: border-box;
+            font-size: 16px;
+            transition: border 0.3s;
         }
-        
+
+        input[type="text"]:focus,
+        input[type="tel"]:focus,
+        input[type="date"]:focus,
+        textarea:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
         textarea {
-            min-height: 80px;
             resize: vertical;
+            min-height: 80px;
         }
-        
-        input[type="file"] {
-            border: 1px solid #ccc;
-            padding: 8px;
-            width: 100%;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        
+
         .input-group {
             display: flex;
             gap: 15px;
         }
-        
-        .input-group>div {
+
+        .input-group > div {
             flex: 1;
         }
-        
-        .input-group>div.fixed-width {
-            flex: 0 0 100px;
+
+        .fixed-width {
+            max-width: 150px;
         }
-        
-        button[type="submit"] {
-            display: block;
-            width: 100%;
-            padding: 12px 20px;
-            background-color: #5cb85c;
-            color: white;
+
+        .required-note {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+
+        /* File Upload */
+        .upload-section {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        /* Navigation Buttons */
+        .form-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        button {
+            padding: 12px 25px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-prev {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .btn-prev:hover {
+            background: #7f8c8d;
+        }
+
+        .btn-next {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-next:hover {
+            background: #2980b9;
+        }
+
+        .btn-submit {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .btn-submit:hover {
+            background: #27ae60;
+        }
+
+        /* Messages */
+        .error-message {
+            background: #e74c3c;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .success-message {
+            background: #2ecc71;
+            color: white;
+            padding: 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        /* Cancel Link */
+        .cancel-link {
+            text-align: center;
             margin-top: 20px;
         }
-        
-        button[type="submit"]:hover {
-            background-color: #4cae4c;
+
+        .cancel-link a {
+            color: #555;
+            text-decoration: none;
         }
-        
-        .required-note {
-            font-size: 0.9em;
-            color: #777;
-            margin-top: 5px;
+
+        .cancel-link a:hover {
+            text-decoration: underline;
         }
-        
-        .upload-section {
-            margin-top: 25px;
-            padding-top: 15px;
-            border-top: 1px solid #eee;
-        }
-        
-        .upload-section h2 {
-            margin-bottom: 15px;
-            font-size: 1.2em;
-            border-bottom: none;
-        }
-        
-        .error-message {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-        
-        .success-message {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .input-group {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .fixed-width {
+                max-width: 100%;
+            }
         }
     </style>
-    <link rel="shortcut icon" href="/img/favicon.jpg" type="image/x-icon">
-
 </head>
 
 <body>
-
-
     <div class="container">
-        <h1>Apply for:
-            <%= job.title %>
-        </h1>
-        <p style="text-align: center; font-style: italic; margin-bottom: 25px;">Appointment Form C - Student Assistant, Demonstrator, Tutor and Mentor</p>
-
+        <h1>Apply for: <%= job.title %></h1>
+        <p class="subtitle">Appointment Form C - Student Assistant, Demonstrator, Tutor and Mentor</p>
 
         <% if (locals.error && error) { %>
             <div class="error-message">
                 <%= error %>
             </div>
-            <% } %>
-                <% if (locals.message && message) { %>
-                    <div class="success-message">
-                        <%= message %>
+        <% } %>
+        
+        <% if (locals.message && message) { %>
+            <div class="success-message">
+                <%= message %>
+            </div>
+        <% } %>
+
+        <!-- Form Steps Indicator -->
+        <div class="form-steps">
+            <div class="step active" data-step="1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Personal Details</div>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Contact Info</div>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Banking & Tax</div>
+            </div>
+            <div class="step" data-step="4">
+                <div class="step-circle">4</div>
+                <div class="step-label">Documents</div>
+            </div>
+            <div class="step" data-step="5">
+                <div class="step-circle">5</div>
+                <div class="step-label">Review & Submit</div>
+            </div>
+        </div>
+
+        <form action="/jobs/<%= job.id %>/apply" method="post" enctype="multipart/form-data" id="application-form">
+            <!-- Step 1: Personal Details -->
+            <div class="form-section active" id="step-1">
+                <h2>Personal Details</h2>
+                
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" required value="<%= typeof formData !== 'undefined' && formData.title ? formData.title : '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="initials">Initials:</label>
+                    <input type="text" id="initials" name="initials" maxlength="5" value="<%= typeof formData !== 'undefined' && formData.initials ? formData.initials : '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="identity_number">Identity Number:</label>
+                    <input type="text" id="identity_number" name="identity_number" required pattern="\d{13}" title="Please enter a 13-digit South African ID number" value="<%= typeof formData !== 'undefined' && formData.identity_number ? formData.identity_number : '' %>">
+                </div>
+
+                <div class="form-group">
+                    <label>Duration of Potential Appointment:</label>
+                    <div class="input-group">
+                        <div>
+                            <label for="appointment_from" style="font-weight: normal;">From:</label>
+                            <input type="date" id="appointment_from" name="appointment_from" required value="<%= typeof formData !== 'undefined' && formData.appointment_from ? formData.appointment_from : '' %>">
+                        </div>
+                        <div>
+                            <label for="appointment_to" style="font-weight: normal;">To:</label>
+                            <input type="date" id="appointment_to" name="appointment_to" required value="<%= typeof formData !== 'undefined' && formData.appointment_to ? formData.appointment_to : '' %>">
+                        </div>
                     </div>
-                    <% } %>
+                </div>
 
+                <div class="form-navigation">
+                    <div></div> <!-- Empty div for spacing -->
+                    <button type="button" class="btn-next" onclick="nextStep(1)">Next</button>
+                </div>
+            </div>
 
+            <!-- Step 2: Contact Information -->
+            <div class="form-section" id="step-2">
+                <h2>Contact Information</h2>
 
-                        <form action="/jobs/<%= job.id %>/apply" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="postal_address">Postal Address:</label>
+                    <textarea id="postal_address" name="postal_address" rows="3" required><%= typeof formData !== 'undefined' && formData.postal_address ? formData.postal_address : '' %></textarea>
+                </div>
 
-                            <h2>Personal Details</h2>
+                <div class="form-group">
+                    <label for="postal_code">Postal Code:</label>
+                    <input type="text" id="postal_code" name="postal_code" pattern="\d{4}" title="Please enter a 4-digit postal code" required class="fixed-width" value="<%= typeof formData !== 'undefined' && formData.postal_code ? formData.postal_code : '' %>">
+                </div>
 
+                <div class="form-group">
+                    <label for="residential_address">Residential Address:</label>
+                    <textarea id="residential_address" name="residential_address" rows="3" required><%= typeof formData !== 'undefined' && formData.residential_address ? formData.residential_address : '' %></textarea>
+                </div>
 
-                            <div class="form-group">
-                                <label for="title">Title:</label>
-                                <input type="text" id="title" name="title" required value="<%= typeof formData !== 'undefined' && formData.title ? formData.title : '' %>">
-                            </div>
+                <div class="form-group">
+                    <label for="residential_code">Residential Code:</label>
+                    <input type="text" id="residential_code" name="residential_code" pattern="\d{4}" title="Please enter a 4-digit postal code" required class="fixed-width" value="<%= typeof formData !== 'undefined' && formData.residential_code ? formData.residential_code : '' %>">
+                </div>
 
-                            <div class="form-group">
-                                <label for="initials">Initials:</label>
-                                <input type="text" id="initials" name="initials" maxlength="5" value="<%= typeof formData !== 'undefined' && formData.initials ? formData.initials : '' %>">
-                            </div>
+                <div class="form-group">
+                    <label for="cellular_phone">Cellular Phone:</label>
+                    <input type="tel" id="cellular_phone" name="cellular_phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number" value="<%= typeof formData !== 'undefined' && formData.cellular_phone ? formData.cellular_phone : '' %>">
+                </div>
 
+                <div class="form-navigation">
+                    <button type="button" class="btn-prev" onclick="prevStep(2)">Previous</button>
+                    <button type="button" class="btn-next" onclick="nextStep(2)">Next</button>
+                </div>
+            </div>
 
-                            <div class="form-group">
-                                <label for="identity_number">Identity Number:</label>
-                                <input type="text" id="identity_number" name="identity_number" required pattern="\d{13}" title="Please enter a 13-digit South African ID number" value="<%= typeof formData !== 'undefined' && formData.identity_number ? formData.identity_number : '' %>">
-                            </div>
+            <!-- Step 3: Banking & Tax Information -->
+            <div class="form-section" id="step-3">
+                <h2>Banking & Tax Information</h2>
 
-                            <div class="form-group">
-                                <label>Duration of Potential Appointment:</label>
-                                <div class="input-group">
-                                    <div>
-                                        <label for="appointment_from" style="font-weight: normal;">From:</label>
-                                        <input type="date" id="appointment_from" name="appointment_from" required value="<%= typeof formData !== 'undefined' && formData.appointment_from ? formData.appointment_from : '' %>">
-                                    </div>
-                                    <div>
-                                        <label for="appointment_to" style="font-weight: normal;">To:</label>
-                                        <input type="date" id="appointment_to" name="appointment_to" required value="<%= typeof formData !== 'undefined' && formData.appointment_to ? formData.appointment_to : '' %>">
-                                    </div>
-                                </div>
-                            </div>
+                <div class="input-group">
+                    <div>
+                        <label for="bank_name">Bank Name:</label>
+                        <input type="text" id="bank_name" name="bank_name" required value="<%= typeof formData !== 'undefined' && formData.bank_name ? formData.bank_name : '' %>">
+                    </div>
+                    <div class="fixed-width">
+                        <label for="branch_code">Branch Code:</label>
+                        <input type="text" id="branch_code" name="branch_code" required pattern="\d{6}" title="Please enter a 6-digit branch code" value="<%= typeof formData !== 'undefined' && formData.branch_code ? formData.branch_code : '' %>">
+                    </div>
+                </div>
 
-                            <h2>Contact Information</h2>
+                <div class="form-group">
+                    <label for="account_number">Account Number:</label>
+                    <input type="text" id="account_number" name="account_number" required pattern="\d+" value="<%= typeof formData !== 'undefined' && formData.account_number ? formData.account_number : '' %>">
+                </div>
 
-                            <div class="form-group">
-                                <label for="postal_address">Postal Address:</label>
-                                <textarea id="postal_address" name="postal_address" rows="3" required><%= typeof formData !== 'undefined' && formData.postal_address ? formData.postal_address : '' %></textarea>
-                            </div>
+                <div class="form-group">
+                    <label for="account_holder_name">Account Holder Name:</label>
+                    <input type="text" id="account_holder_name" name="account_holder_name" required value="<%= typeof formData !== 'undefined' && formData.account_holder_name ? formData.account_holder_name : '' %>">
+                </div>
 
-                            <div class="form-group">
-                                <label for="postal_code">Postal Code:</label>
-                                <input type="text" id="postal_code" name="postal_code" pattern="\d{4}" title="Please enter a 4-digit postal code" required class="fixed-width" value="<%= typeof formData !== 'undefined' && formData.postal_code ? formData.postal_code : '' %>">
-                            </div>
+                <div class="form-group">
+                    <label for="income_tax_number">Income Tax Number:</label>
+                    <input type="text" id="income_tax_number" name="income_tax_number" pattern="\d+" value="<%= typeof formData !== 'undefined' && formData.income_tax_number ? formData.income_tax_number : '' %>">
+                    <p class="required-note">If available.</p>
+                </div>
 
-                            <div class="form-group">
-                                <label for="residential_address">Residential Address:</label>
-                                <textarea id="residential_address" name="residential_address" rows="3" required><%= typeof formData !== 'undefined' && formData.residential_address ? formData.residential_address : '' %></textarea>
-                            </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn-prev" onclick="prevStep(3)">Previous</button>
+                    <button type="button" class="btn-next" onclick="nextStep(3)">Next</button>
+                </div>
+            </div>
 
-                            <div class="form-group">
-                                <label for="residential_code">Residential Code:</label>
-                                <input type="text" id="residential_code" name="residential_code" pattern="\d{4}" title="Please enter a 4-digit postal code" required class="fixed-width" value="<%= typeof formData !== 'undefined' && formData.residential_code ? formData.residential_code : '' %>">
-                            </div>
+            <!-- Step 4: Document Upload -->
+            <div class="form-section" id="step-4">
+                <div class="upload-section">
+                    <h2>Required Documents</h2>
+                    <p class="required-note">Please upload the following documents in PDF format only (Max 5MB each).</p>
 
-                            <div class="form-group">
-                                <label for="cellular_phone">Cellular Phone:</label>
-                                <input type="tel" id="cellular_phone" name="cellular_phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number" value="<%= typeof formData !== 'undefined' && formData.cellular_phone ? formData.cellular_phone : '' %>">
-                            </div>
+                    <div class="form-group">
+                        <label for="id_document">1. Copy of Identity Document (PDF):</label>
+                        <input type="file" id="id_document" name="id_document" accept=".pdf" required>
+                    </div>
 
+                    <div class="form-group">
+                        <label for="tax_proof">2. Proof of Income Tax Number (PDF):</label>
+                        <input type="file" id="tax_proof" name="tax_proof" accept=".pdf">
+                        <p class="required-note">Upload proof if you have an Income Tax Number.</p>
+                    </div>
 
-                            <h2>Banking & Tax Information</h2>
+                    <div class="form-group">
+                        <label for="bank_proof">3. Proof of Bank Account Number (PDF):</label>
+                        <input type="file" id="bank_proof" name="bank_proof" accept=".pdf" required>
+                        <p class="required-note">E.g., Copy of bank statement or print out from internet banking showing account holder name and account number.</p>
+                    </div>
 
-                            <div class="input-group">
-                                <div>
-                                    <label for="bank_name">Bank Name:</label>
-                                    <input type="text" id="bank_name" name="bank_name" required value="<%= typeof formData !== 'undefined' && formData.bank_name ? formData.bank_name : '' %>">
-                                </div>
-                                <div class="fixed-width">
-                                    <label for="branch_code">Branch Code:</label>
-                                    <input type="text" id="branch_code" name="branch_code" required pattern="\d{6}" title="Please enter a 6-digit branch code" value="<%= typeof formData !== 'undefined' && formData.branch_code ? formData.branch_code : '' %>">
-                                </div>
-                            </div>
+                    <div class="form-group">
+                        <label for="resume">4. Your Resume/CV (PDF):</label>
+                        <input type="file" id="resume" name="resume" accept=".pdf">
+                        <p class="required-note">Please upload your resume or CV. PDF format only (Max 5MB).</p>
+                    </div>
+                </div>
 
-                            <div class="form-group">
-                                <label for="account_number">Account Number:</label>
-                                <input type="text" id="account_number" name="account_number" required pattern="\d+" value="<%= typeof formData !== 'undefined' && formData.account_number ? formData.account_number : '' %>">
-                            </div>
+                <div class="form-group" style="margin-top: 25px;">
+                    <label for="submission_date">Submission Date:</label>
+                    <input type="date" id="submission_date" name="submission_date" required value="<%= typeof formData !== 'undefined' && formData.submission_date ? formData.submission_date : '' %>">
+                    <p class="required-note">By submitting this form, you confirm that the information provided is accurate.</p>
+                </div>
 
-                            <div class="form-group">
-                                <label for="account_holder_name">Account Holder Name:</label>
-                                <input type="text" id="account_holder_name" name="account_holder_name" required value="<%= typeof formData !== 'undefined' && formData.account_holder_name ? formData.account_holder_name : '' %>">
-                            </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn-prev" onclick="prevStep(4)">Previous</button>
+                    <button type="button" class="btn-next" onclick="nextStep(4)">Next</button>
+                </div>
+            </div>
 
-                            <div class="form-group">
-                                <label for="income_tax_number">Income Tax Number:</label>
-                                <input type="text" id="income_tax_number" name="income_tax_number" pattern="\d+" value="<%= typeof formData !== 'undefined' && formData.income_tax_number ? formData.income_tax_number : '' %>">
-                                <p class="required-note">If available.</p>
-                            </div>
+            <!-- Step 5: Review & Submit -->
+            <div class="form-section" id="step-5">
+                <h2>Review Your Application</h2>
+                <p>Please review all the information you've entered before submitting your application.</p>
+                
+                <div class="review-section">
+                    <h3>Personal Details</h3>
+                    <div id="review-personal"></div>
+                    
+                    <h3>Contact Information</h3>
+                    <div id="review-contact"></div>
+                    
+                    <h3>Banking & Tax Information</h3>
+                    <div id="review-banking"></div>
+                    
+                    <h3>Documents</h3>
+                    <div id="review-documents"></div>
+                </div>
 
+                <div class="form-navigation">
+                    <button type="button" class="btn-prev" onclick="prevStep(5)">Previous</button>
+                    <button type="submit" class="btn-submit">Submit Application</button>
+                </div>
+            </div>
+        </form>
 
-                            <div class="upload-section">
-                                <h2>Required Documents</h2>
-                                <p class="required-note">Please upload the following documents in PDF format only (Max 5MB each).</p>
-
-                                <div class="form-group">
-                                    <label for="id_document">1. Copy of Identity Document (PDF):</label>
-                                    <input type="file" id="id_document" name="id_document" accept=".pdf" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="tax_proof">2. Proof of Income Tax Number (PDF):</label>
-                                    <input type="file" id="tax_proof" name="tax_proof" accept=".pdf">
-                                    <p class="required-note">Upload proof if you have an Income Tax Number.</p>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="bank_proof">3. Proof of Bank Account Number (PDF):</label>
-                                    <input type="file" id="bank_proof" name="bank_proof" accept=".pdf" required>
-                                    <p class="required-note">E.g., Copy of bank statement or print out from internet banking showing account holder name and account number.</p>
-                                </div>
-
-                                <%# NEW RESUME FIELD ADDED HERE %>
-                                    <div class="form-group">
-                                        <label for="resume">4. Your Resume/CV (PDF):</label>
-                                        <input type="file" id="resume" name="resume" accept=".pdf">
-                                        <%# Add 'required' if it is mandatory %>
-                                            <p class="required-note">Please upload your resume or CV. PDF format only (Max 5MB).</p>
-                                    </div>
-                            </div>
-
-
-
-                            <div class="form-group" style="margin-top: 25px;">
-                                <label for="submission_date">Submission Date:</label>
-                                <input type="date" id="submission_date" name="submission_date" required value="<%= typeof formData !== 'undefined' && formData.submission_date ? formData.submission_date : '' %>">
-                                <p class="required-note">By submitting this form, you confirm that the information provided is accurate.</p>
-                            </div>
-
-
-                            <button type="submit">Submit Application</button>
-
-                            <div style="text-align: center; margin-top: 20px;">
-                                <a href="/jobs/<%= job.id %>" style="color: #555; text-decoration: none;">Cancel and return to Job Details</a>
-                            </div>
-
-                        </form>
+        <div class="cancel-link">
+            <a href="/jobs/<%= job.id %>">Cancel and return to Job Details</a>
+        </div>
     </div>
 
+    <script>
+        // Form navigation functions
+        function nextStep(currentStep) {
+            // Validate current step before proceeding
+            if (validateStep(currentStep)) {
+                // Hide current step
+                document.getElementById(`step-${currentStep}`).classList.remove('active');
+                
+                // Update step indicator
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+                document.querySelector(`.step[data-step="${currentStep}"]`).classList.add('completed');
+                
+                // Show next step
+                const nextStepNum = currentStep + 1;
+                document.getElementById(`step-${nextStepNum}`).classList.add('active');
+                document.querySelector(`.step[data-step="${nextStepNum}"]`).classList.add('active');
+                
+                // If moving to review step, populate the review
+                if (nextStepNum === 5) {
+                    populateReview();
+                }
+            }
+        }
 
+        function prevStep(currentStep) {
+            // Hide current step
+            document.getElementById(`step-${currentStep}`).classList.remove('active');
+            
+            // Update step indicator
+            document.querySelector(`.step[data-step="${currentStep}"]`).classList.remove('active');
+            
+            // Show previous step
+            const prevStepNum = currentStep - 1;
+            document.getElementById(`step-${prevStepNum}`).classList.add('active');
+            document.querySelector(`.step[data-step="${prevStepNum}"]`).classList.add('active');
+        }
 
+        // Basic step validation
+        function validateStep(stepNumber) {
+            const currentStep = document.getElementById(`step-${stepNumber}`);
+            const inputs = currentStep.querySelectorAll('input[required], textarea[required]');
+            
+            let isValid = true;
+            
+            for (let input of inputs) {
+                if (!input.value.trim()) {
+                    input.style.borderColor = '#e74c3c';
+                    isValid = false;
+                } else {
+                    input.style.borderColor = '#ddd';
+                }
+                
+                // Check pattern validation if applicable
+                if (input.pattern && input.value) {
+                    const regex = new RegExp(input.pattern);
+                    if (!regex.test(input.value)) {
+                        input.style.borderColor = '#e74c3c';
+                        isValid = false;
+                    }
+                }
+            }
+            
+            if (!isValid) {
+                alert('Please fill in all required fields correctly before proceeding.');
+            }
+            
+            return isValid;
+        }
+
+        // Populate review section
+        function populateReview() {
+            // Personal Details
+            document.getElementById('review-personal').innerHTML = `
+                <p><strong>Title:</strong> ${document.getElementById('title').value}</p>
+                <p><strong>Initials:</strong> ${document.getElementById('initials').value}</p>
+                <p><strong>Identity Number:</strong> ${document.getElementById('identity_number').value}</p>
+                <p><strong>Appointment From:</strong> ${document.getElementById('appointment_from').value}</p>
+                <p><strong>Appointment To:</strong> ${document.getElementById('appointment_to').value}</p>
+            `;
+            
+            // Contact Information
+            document.getElementById('review-contact').innerHTML = `
+                <p><strong>Postal Address:</strong> ${document.getElementById('postal_address').value}</p>
+                <p><strong>Postal Code:</strong> ${document.getElementById('postal_code').value}</p>
+                <p><strong>Residential Address:</strong> ${document.getElementById('residential_address').value}</p>
+                <p><strong>Residential Code:</strong> ${document.getElementById('residential_code').value}</p>
+                <p><strong>Cellular Phone:</strong> ${document.getElementById('cellular_phone').value}</p>
+            `;
+            
+            // Banking & Tax Information
+            document.getElementById('review-banking').innerHTML = `
+                <p><strong>Bank Name:</strong> ${document.getElementById('bank_name').value}</p>
+                <p><strong>Branch Code:</strong> ${document.getElementById('branch_code').value}</p>
+                <p><strong>Account Number:</strong> ${document.getElementById('account_number').value}</p>
+                <p><strong>Account Holder Name:</strong> ${document.getElementById('account_holder_name').value}</p>
+                <p><strong>Income Tax Number:</strong> ${document.getElementById('income_tax_number').value || 'Not provided'}</p>
+            `;
+            
+            // Documents
+            const idDoc = document.getElementById('id_document').files[0];
+            const taxProof = document.getElementById('tax_proof').files[0];
+            const bankProof = document.getElementById('bank_proof').files[0];
+            const resume = document.getElementById('resume').files[0];
+            
+            document.getElementById('review-documents').innerHTML = `
+                <p><strong>ID Document:</strong> ${idDoc ? idDoc.name : 'Not uploaded'}</p>
+                <p><strong>Tax Proof:</strong> ${taxProof ? taxProof.name : 'Not uploaded'}</p>
+                <p><strong>Bank Proof:</strong> ${bankProof ? bankProof.name : 'Not uploaded'}</p>
+                <p><strong>Resume:</strong> ${resume ? resume.name : 'Not uploaded'}</p>
+                <p><strong>Submission Date:</strong> ${document.getElementById('submission_date').value}</p>
+            `;
+        }
+
+        // Add event listeners for real-time validation
+        document.addEventListener('DOMContentLoaded', function() {
+            const requiredInputs = document.querySelectorAll('input[required], textarea[required]');
+            
+            requiredInputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    if (!this.value.trim()) {
+                        this.style.borderColor = '#e74c3c';
+                    } else {
+                        this.style.borderColor = '#ddd';
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
