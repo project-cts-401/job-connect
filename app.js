@@ -39,12 +39,14 @@ app.use(express.static(path.join(__dirname, "public")));
 const adminRoutes = require('./routes/admin');
 const jobRoutes = require('./routes/jobs');
 const AboutRoutes = require('./routes/about');
+// const transcriptParser = require('./routes/transcriptParser');
 const applicationRoutes = require('./routes/applications');
 const { requireLogin, requireAdmin, requireStudent } = require('./middleware/authMiddleware');
 
 app.use('/', require("./routes/home"));
 app.use('/auth', require("./routes/auth"));
 app.use('/AboutUs', require("./routes/about"));
+app.use('/transcriptParser', require("./routes/transcriptParser"));
 
 const studentRouter = require('./routes/student');
 app.use('/student', studentRouter);

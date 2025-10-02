@@ -79,9 +79,9 @@ const sendApplicationReceivedEmail = async (job_post_id) => {
 
     try {
         await transporter.sendMail(mailOptions);
-        console.log(`Password reset email sent to ${email}`);
+        console.log(`Password reset email sent to `);
     } catch (error) {
-        console.error(`Error sending password reset email to ${email}:`, error);
+        console.error(`Error sending password reset email to :`, error);
         throw new AppError('Failed to send password reset email.', 500); // Throw AppError here
     }
 };
@@ -147,12 +147,13 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
     storage: storage,
     fileFilter: fileFilter,
-    limits: { fileSize: 50 * 1024 * 1024 } // Example: 5MB file size limit
-}).fields([ // Use .fields() for named file inputs
+    limits: { fileSize: 50 * 1024 * 1024 } // 5MB file size limit
+}).fields([
     { name: 'id_document', maxCount: 1 },
     { name: 'tax_proof', maxCount: 1 },
     { name: 'bank_proof', maxCount: 1 },
-    { name: 'resume', maxCount: 1 }
+    { name: 'resume', maxCount: 1 },
+    { name: 'academic_transcript', maxCount: 1 } // <-- Add this line
 ]);
 // --- End Multer Configuration ---
 
@@ -401,7 +402,6 @@ router.get('/:jobId/apply', requireLogin, (req, res) => {
 });
 
 
-// *** MODIFIED *** POST route for a student to apply (handles detailed form and files)
 router.post('/:jobId/apply', requireLogin, (req, res) => {
     const jobId = req.params.jobId;
     const studentId = req.session.userId;
@@ -439,22 +439,20 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
 
         // --- Helper function to clean up uploaded files ---
         const cleanupFiles = (files) => {
-            const fileInputs = ['id_document', 'tax_proof', 'bank_proof', 'resume']; // Add any other file inputs here
+            const fileInputs = ['id_document', 'tax_proof', 'bank_proof', 'resume', 'academic_transcript'];
             fileInputs.forEach(fieldName => {
                 if (files && files[fieldName] && files[fieldName][0]) {
-                    fs.unlink(files[fieldName][0].path, (err) => { // Use asynchronous unlink
+                    fs.unlink(files[fieldName][0].path, (err) => {
                         if (err) console.error(`Error deleting uploaded file ${files[fieldName][0].path}:`, err);
                     });
                 }
             });
-
         };
-
 
         if (uploadErr instanceof multer.MulterError) {
             // A Multer error occurred (e.g., file size limit)
             console.error("Multer Upload Error:", uploadErr.message);
-            cleanupFiles(req.files); // Clean up any partial uploads
+            cleanupFiles(req.files);
             return renderFormWithError(`File upload error: ${uploadErr.message}. Please ensure files are PDF and within size limits.`, req.body);
         } else if (uploadErr || req.fileValidationError) {
             // A non-Multer error or our custom file type error occurred
@@ -468,24 +466,23 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
 
         // 3. Check if files were actually uploaded
         const idDocFile = req.files && req.files['id_document'] ? req.files['id_document'][0] : null;
-        const taxProofFile = req.files && req.files['tax_proof'] ? req.files['tax_proof'][0] : null; // Optional?
+        const taxProofFile = req.files && req.files['tax_proof'] ? req.files['tax_proof'][0] : null;
         const bankProofFile = req.files && req.files['bank_proof'] ? req.files['bank_proof'][0] : null;
-        // const transcriptFile = req.files && req.files['transcript'] ? req.files['transcript'][0] : null;
         const resumeFile = req.files && req.files['resume'] ? req.files['resume'][0] : null;
+        const academicTranscriptFile = req.files && req.files['academic_transcript'] ? req.files['academic_transcript'][0] : null;
 
         // 4. Basic validation: Check if required files are present
-        // Adjust this logic based on whether tax_proof is truly required
-        if (!idDocFile || !bankProofFile /* || !taxProofFile */ ) {
-            cleanupFiles(req.files); // Clean up successful uploads before erroring
+        if (!idDocFile || !bankProofFile || !academicTranscriptFile) {
+            cleanupFiles(req.files);
             console.error("Missing required file uploads");
-            return renderFormWithError('Missing required document uploads. Please ensure all required PDFs are selected.', req.body);
+            return renderFormWithError('Missing required document uploads. Please ensure ID document, bank proof, and academic transcript are uploaded.', req.body);
         }
 
         // 5. Extract text data from req.body
         const {
             title,
             initials,
-            identity_number, // Removed surname, first_names, student_number, email assuming linked via studentId
+            identity_number,
             appointment_from,
             appointment_to,
             postal_address,
@@ -501,38 +498,53 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
             submission_date
         } = req.body;
 
-        // Basic validation for key text fields (add more as needed)
-        if (!identity_number || !cellular_phone || !bank_name || !account_number || !account_holder_name || !submission_date) {
+        // Basic validation for key text fields
+        if (!title || !identity_number || !cellular_phone || !bank_name || !branch_code || !account_number || !account_holder_name || !submission_date) {
             cleanupFiles(req.files);
             return renderFormWithError('Missing required form fields. Please complete all required entries.', req.body);
         }
 
+        // Validate dates
+        const fromDate = new Date(appointment_from);
+        const toDate = new Date(appointment_to);
+        const submissionDate = new Date(submission_date);
+        const today = new Date();
+        
+        if (fromDate >= toDate) {
+            cleanupFiles(req.files);
+            return renderFormWithError('Appointment "From" date must be before "To" date.', req.body);
+        }
+
+        if (submissionDate > today) {
+            cleanupFiles(req.files);
+            return renderFormWithError('Submission date cannot be in the future.', req.body);
+        }
 
         // 6. Extract relative paths for DB storage
-        const projectRoot = path.join(__dirname, '..'); // Assumes routes folder is one level down from project root
+        const projectRoot = path.join(__dirname, '..');
         const idDocPath = idDocFile ? path.relative(projectRoot, idDocFile.path) : null;
         const taxProofPath = taxProofFile ? path.relative(projectRoot, taxProofFile.path) : null;
         const bankProofPath = bankProofFile ? path.relative(projectRoot, bankProofFile.path) : null;
         const resumePath = resumeFile ? path.relative(projectRoot, resumeFile.path) : null;
+        const academicTranscriptPath = academicTranscriptFile ? path.relative(projectRoot, academicTranscriptFile.path) : null;
 
         // --- 7. Proceed with Database Operations ---
         const checkSql = `SELECT id FROM applications WHERE job_post_id = ? AND student_id = ?`;
         db.get(checkSql, [jobId, studentId], (checkErr, existingApp) => {
-
             if (checkErr) {
                 console.error("DB Error checking existing application:", checkErr.message);
-                cleanupFiles(req.files); // Clean up files
+                cleanupFiles(req.files);
                 return renderFormWithError('Error checking application status. Please try again.', req.body);
             }
+            
             if (existingApp) {
-                cleanupFiles(req.files); // Clean up files
-                flashError('error', 'You have already applied for this job.'); // Use flash for redirect
+                cleanupFiles(req.files);
+                flashError('error', 'You have already applied for this job.');
                 sendApplicationExistsEmail();
-                return res.redirect(`/jobs/${jobId}`); // Redirect back to detail page
+                return res.redirect(`/jobs/${jobId}`);
             }
 
             // --- 8. Insert New Application with ALL Details ---
-            // Ensure column names match your ALTER TABLE commands exactly
             const insertSql = `
                 INSERT INTO applications (
                     job_post_id, student_id, status, application_date, resume_path,
@@ -540,37 +552,38 @@ router.post('/:jobId/apply', requireLogin, (req, res) => {
                     postal_address, postal_code, residential_address, residential_code,
                     cellular_phone, bank_name, branch_code, account_number, account_holder_name,
                     income_tax_number, submission_date,
-                    id_document_path, tax_proof_path, bank_proof_path
+                    id_document_path, tax_proof_path, bank_proof_path, academic_transcript_path
                 ) VALUES (
-                    ?, ?, ?, CURRENT_TIMESTAMP,
-                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+                    ?, ?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, 
+                    ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 
+                    ?, ?, ?, ?, ?
                 )
             `;
 
             const params = [
                 jobId, studentId, 'submitted',
-                resumePath, title, initials, identity_number, appointment_from, appointment_to,
+                resumePath, 
+                title, initials, identity_number, appointment_from, appointment_to,
                 postal_address, postal_code, residential_address, residential_code,
                 cellular_phone, bank_name, branch_code, account_number, account_holder_name,
                 income_tax_number, submission_date,
-                idDocPath, taxProofPath, bankProofPath
+                idDocPath, taxProofPath, bankProofPath, academicTranscriptPath
             ];
-
 
             db.run(insertSql, params, function(insertErr) {
                 if (insertErr) {
                     console.error("DB Error submitting application:", insertErr.message);
-                    cleanupFiles(req.files); // Clean up files on failed insert
+                    cleanupFiles(req.files);
                     return renderFormWithError('Database error submitting application. Please try again.', req.body);
                 }
 
                 // 9. Success! Redirect with success message
                 if (req.flash) req.flash('success', 'Application submitted successfully!');
-                res.redirect('/applications/my');
-                sendApplicationReceivedEmail(jobId); // Notify student
-            }); // End db.run
-        }); // End db.get (check existing)
-    }); // End of upload middleware callback
+                sendApplicationReceivedEmail(jobId);
+                return res.redirect('/applications/my');
+            });
+        });
+    });
 });
 
 

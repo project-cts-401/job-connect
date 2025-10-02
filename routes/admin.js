@@ -47,7 +47,6 @@ router.get('/jobs', (req, res) => {
     });
 });
 
-
 // --- Application Review ---
 
 router.get('/jobs/:jobId/applications', (req, res) => {
@@ -79,8 +78,39 @@ router.get('/jobs/:jobId/applications', (req, res) => {
                 console.error("DB Error fetching applications:", appsErr.message);
                 return res.status(500).send("Error fetching applications.");
             }
-             // Assumes view named 'admin/view_applications.ejs' exists
             res.render('admin/view_applications', { job: job, applications: applications, error: null });
+        });
+    });
+});
+
+// GET route to view individual applicant details and documents
+router.get('/applications/:appId', (req, res) => {
+    const appId = req.params.appId;
+    const adminId = req.session.userId;
+
+    // Verify the admin owns this job application
+    const checkOwnershipSql = `
+        SELECT a.*, j.title AS job_title, j.posted_by_admin_id, 
+               s.name AS student_name, s.email AS student_email, s.student_number
+        FROM applications a
+        JOIN job_posts j ON a.job_post_id = j.id
+        JOIN students s ON a.student_id = s.id
+        WHERE a.id = ? AND j.posted_by_admin_id = ?
+    `;
+    
+    db.get(checkOwnershipSql, [appId, adminId], (err, application) => {
+        if (err) {
+            console.error("DB Error fetching application details:", err.message);
+            return res.status(500).send("Error fetching application details.");
+        }
+        
+        if (!application) {
+            return res.status(404).send("Application not found or access denied.");
+        }
+
+        res.render('admin/view_applicant_details', { 
+            application: application,
+            error: null 
         });
     });
 });
@@ -92,12 +122,10 @@ router.post('/applications/:appId/status', (req, res) => {
     const adminId = req.session.userId;
 
     // Validate newStatus (ensure it's one of your allowed statuses)
-    const allowedStatuses = ['Submitted', 'Under Review', 'Interviewing', 'Offered', 'Rejected', 'Accepted']; // Example statuses
+    const allowedStatuses = ['Submitted', 'Under Review', 'Interviewing', 'Offered', 'Rejected', 'Accepted'];
     if (!allowedStatuses.includes(newStatus)) {
-        // Handle invalid status update attempt
-        // You might need the job ID to redirect back properly, requiring fetching it first
         console.error("Invalid status update attempt:", newStatus);
-        return res.status(400).send("Invalid status provided."); // Simplified error handling
+        return res.status(400).send("Invalid status provided.");
     }
 
     // Security Check: Verify admin owns the job associated with this application
@@ -122,14 +150,12 @@ router.post('/applications/:appId/status', (req, res) => {
         db.run(updateSql, [newStatus, appId], function(updateErr) {
              if (updateErr) {
                  console.error("DB Error updating application status:", updateErr.message);
-                 return res.status(500).send("Error updating status."); // Simplified
+                 return res.status(500).send("Error updating status.");
              }
              // Redirect back to the application list for that job
-             // 'row.job_post_id' contains the ID from the ownership check
              res.redirect(`/admin/jobs/${row.job_post_id}/applications`);
         });
     });
 });
-
 
 module.exports = router;

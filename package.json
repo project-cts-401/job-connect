@@ -21,7 +21,8 @@
     "nodemailer": "^7.0.6",
     "path": "^0.12.7",
     "sqlite3": "^5.1.7",
-    "ump-job-connect": "file:"
+    "ump-job-connect": "file:",
+    "pdf-parse": "^1.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

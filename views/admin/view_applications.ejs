@@ -98,6 +98,7 @@
 
                 <% if (applications && applications.length > 0) { %>
                     <div class="table-container">
+                        <!-- Update the table header -->
                         <table class="job-table applications-table">
                             <thead>
                                 <tr>
@@ -106,6 +107,7 @@
                                     <th>Date Applied</th>
                                     <th>Current Status</th>
                                     <th>Update Status</th>
+                                    <th>Actions</th> <!-- New column -->
                                 </tr>
                             </thead>
                             <tbody>
@@ -129,6 +131,12 @@
                                                 </select>
                                                 <button type="submit" class="btn btn-sm btn-update-status">Update</button>
                                             </form>
+                                        </td>
+                                        <td data-label="Actions">
+                                            <!-- New View Applicant Button -->
+                                            <a href="/admin/applications/<%= app.id %>" class="btn btn-sm btn-view-applicant">
+                                                <i class="ri-user-search-line"></i> View Applicant
+                                            </a>
                                         </td>
                                     </tr>
                                 <% }) %>
